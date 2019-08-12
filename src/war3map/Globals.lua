@@ -14,4 +14,7 @@ end
 function Globals.prototype.____constructor(self)
 end
 Globals.MaxPlayerSlots = 4
+Globals.ActivePlayers = {}
+Globals.CreepPlayers = {}
+Globals.AllRegions = {}
 return ____exports

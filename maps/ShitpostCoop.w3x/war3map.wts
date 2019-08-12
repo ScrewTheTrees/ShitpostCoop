@@ -10,12 +10,12 @@ Force 1
 
 STRING 3
 {
-Just another Warcraft III map
+ShitpostCoop
 }
 
 STRING 4
 {
-Any
+1-4
 }
 
 STRING 5
@@ -61,5 +61,10 @@ Player 15
 STRING 13
 {
 Player 16
+}
+
+STRING 14
+{
+Force 2
 }
 

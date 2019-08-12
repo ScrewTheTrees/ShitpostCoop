@@ -7,7 +7,7 @@
     "fullRecompile": "npm run clean && npm run compileTypescript && npm run compileMap",
     "compileMap": "butt.bat",
     "compileTypescript": "tstl -p tsconfig.json",
-    "clean": "rimraf src && rimraf target"
+    "clean": "rimraf src/* && rimraf target/*"
   },
   "directories": {
     "lib": "lib"
