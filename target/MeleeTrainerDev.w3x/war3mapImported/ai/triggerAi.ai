@@ -1,0 +1,145 @@
+globals
+	integer ai_RACE_HUMAN = 0
+	integer ai_RACE_ORC = 1
+	integer ai_RACE_UNDEAD = 2
+	integer ai_RACE_NIGHT_ELF = 3
+endglobals
+
+//--------------------------------------------------------------------------------------------------
+//  setup_force
+//--------------------------------------------------------------------------------------------------
+function setup_force takes nothing returns nothing
+    call InitAssaultGroup()
+    call RemoveInjuries()
+
+    call SetMeleeGroup( ARCHMAGE            )
+    call SetMeleeGroup( PALADIN             )
+    call SetMeleeGroup( MTN_KING            )
+    call SetMeleeGroup( BLOOD_MAGE          )
+    call SetMeleeGroup( FOOTMEN             )
+    call SetMeleeGroup( KNIGHT              )
+    call SetMeleeGroup( RIFLEMEN            )
+    call SetMeleeGroup( PRIEST              )
+    call SetMeleeGroup( SORCERESS           )
+    call SetMeleeGroup( GRYPHON             )
+    call SetMeleeGroup( COPTER              )
+    call SetMeleeGroup( SPELL_BREAKER       )
+    call SetMeleeGroup( HUMAN_DRAGON_HAWK   )	
+
+	call SetMeleeGroup( BLADE_MASTER    )
+    call SetMeleeGroup( FAR_SEER        )
+    call SetMeleeGroup( TAUREN_CHIEF    )
+    call SetMeleeGroup( SHADOW_HUNTER   )
+    call SetMeleeGroup( GRUNT           )
+    call SetMeleeGroup( RAIDER          )
+    call SetMeleeGroup( TAUREN          )
+    call SetMeleeGroup( HEAD_HUNTER     )
+    call SetMeleeGroup( BERSERKER       )
+    call SetMeleeGroup( WYVERN          )
+    call SetMeleeGroup( WITCH_DOCTOR    )
+    call SetMeleeGroup( SHAMAN          )
+    call SetMeleeGroup( KODO_BEAST      )
+    call SetMeleeGroup( BATRIDER        )
+    call SetMeleeGroup( SPIRIT_WALKER   )
+	
+    call SetMeleeGroup( DEATH_KNIGHT )
+    call SetMeleeGroup( DREAD_LORD   )
+    call SetMeleeGroup( LICH         )
+    call SetMeleeGroup( CRYPT_LORD   )
+    call SetMeleeGroup( ABOMINATION  )
+    call SetMeleeGroup( NECRO        )
+    call SetMeleeGroup( BANSHEE      )
+    call SetMeleeGroup( GARGOYLE     )
+    call SetMeleeGroup( FROST_WYRM   )
+    call SetMeleeGroup( OBS_STATUE   )
+	
+    call SetMeleeGroup( KEEPER          )
+    call SetMeleeGroup( WARDEN          )
+    call SetMeleeGroup( MOON_BABE       )
+    call SetMeleeGroup( DEMON_HUNTER    )
+    call SetMeleeGroup( ARCHER          )
+    call SetMeleeGroup( HUNTRESS        )
+    call SetMeleeGroup( DRUID_TALON     )
+    call SetMeleeGroup( DRUID_CLAW      )
+    call SetMeleeGroup( DRYAD           )
+    call SetMeleeGroup( CHIMAERA        )
+    call SetMeleeGroup( MOUNTAIN_GIANT  )
+    call SetMeleeGroup( FAERIE_DRAGON   )
+
+    call SetMeleeGroup( HIPPO )
+    call SetMeleeGroup( BLK_SPHINX  )
+    call SetMeleeGroup( HIPPO_RIDER )
+endfunction
+
+//--------------------------------------------------------------------------------------------------
+//  attack_sequence
+//--------------------------------------------------------------------------------------------------
+function attack_sequence takes nothing returns nothing
+	call setup_force()
+endfunction
+
+//--------------------------------------------------------------------------------------------------
+//  build_sequence
+//--------------------------------------------------------------------------------------------------
+function build_sequence takes nothing returns nothing
+    call InitBuildArray()
+
+    call SetBuildUnit(  1, TREE_LIFE        )
+    call SetBuildUnit(  1, TOWN_HALL        )
+    call SetBuildUnit(  10, WISP             )
+	call SetBuildUnit(  10, PEASANT             )
+ 
+    call SetBuildUnit(  1, ELF_ALTAR        )
+
+endfunction
+//--------------------------------------------------------------------------------------------------
+//  peon_assignment
+//--------------------------------------------------------------------------------------------------
+function peon_assignment takes nothing returns nothing
+    local integer T
+    loop
+        call ClearHarvestAI()
+
+        set T = TownWithMine()
+
+        call HarvestGold(T,4)
+        call HarvestWood(0,1)
+        call HarvestGold(T,1)
+        call HarvestWood(0,2)
+
+        if GetMinesOwned() > 1 then
+            call HarvestGold(T+1,5)
+        endif
+
+        call HarvestWood(0,20)
+
+        call build_sequence()
+        call Sleep(GetRandomReal(0.25,1))
+    endloop
+endfunction
+
+//--------------------------------------------------------------------------------------------------
+//	main
+//--------------------------------------------------------------------------------------------------
+function main takes nothing returns nothing
+    call InitAI()
+	call SetDefendPlayer(true)
+    call SetGroupsFlee(true)
+    call SetHeroesBuyItems(true)
+    call SetHeroesFlee(true)
+    call SetHeroesTakeItems(true)
+    call SetIgnoreInjured(true)
+    call SetPeonsRepair(true)
+    call SetSmartArtillery(true)
+    call SetTargetHeroes(true)
+    call SetUnitsFlee(true)
+    call SetWatchMegaTargets(true)
+
+    call CreateCaptains()
+
+    call Sleep(0.1)
+    call StartThread(function peon_assignment)
+    call StartThread(function attack_sequence)
+	
+    call PlayGame()
+endfunction

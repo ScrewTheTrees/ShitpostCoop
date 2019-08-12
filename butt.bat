@@ -1,0 +1,1 @@
+ceres run ShitpostCoop.w3x
