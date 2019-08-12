@@ -1,6 +1,6 @@
 local ____exports = {}
-local __TSTL_Constants = require("war3map.Constants")
-local Constants = __TSTL_Constants.Constants
+local __TSTL_Globals = require("war3map.Globals")
+local Globals = __TSTL_Globals.Globals
 ____exports.Game = {}
 local Game = ____exports.Game
 Game.name = "Game"
@@ -14,18 +14,11 @@ function Game.new(...)
     return self
 end
 function Game.prototype.____constructor(self)
-    MeleeStartingResources()
-    MeleeStartingHeroLimit()
-    MeleeGrantHeroItems()
-    MeleeClearExcessUnits()
     do
         local i = 0
-        while i <= Constants.MaxPlayerSlots do
-            MeleeStartingUnitsForPlayer(RACE_NIGHTELF, Player(i), GetPlayerStartLocationLoc(Player(i)), true)
-            if i % 2 == 1 then
-                print(i + 1)
-                StartMeleeAI(Player(i), "war3mapImported/ai/triggerAi.ai")
-            end
+        while i < Globals.MaxPlayerSlots do
+            CreateUnitAtLoc(Player(i), FourCC("hpea"), GetPlayerStartLocationLoc(Player(i)), bj_UNIT_FACING)
+            print(i + 1)
             i = i + 1
         end
     end
