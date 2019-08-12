@@ -1,8 +1,9 @@
 import {GlobalGenerator} from "./GlobalGenerator";
 import {CreepRoute} from "./CreepRoute";
+import {Globals} from "./Globals";
 
 export class Game {
-    public route1 : CreepRoute;
+    public routes: CreepRoute[] = [];
 
     constructor() {
         GlobalGenerator.run();
@@ -11,7 +12,7 @@ export class Game {
         FogMaskEnableOff();
 
 
-        this.route1 = new CreepRoute(1);
+        this.routes.push(new CreepRoute(1, Globals.CreepPlayers[1]));
     }
 
 

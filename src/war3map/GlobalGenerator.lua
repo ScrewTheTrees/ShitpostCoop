@@ -95,10 +95,10 @@ function GlobalGenerator.generatePlayers(self)
     if computerPlayers > 0 then
         print("I know friends are hard to find, but the " .. tostring(computerPlayers) .. " computer/s is no substitute.")
     end
-    __TS__ArrayPush(Globals.CreepPlayers, Player(12))
-    __TS__ArrayPush(Globals.CreepPlayers, Player(13))
-    __TS__ArrayPush(Globals.CreepPlayers, Player(14))
-    __TS__ArrayPush(Globals.CreepPlayers, Player(15))
+    Globals.CreepPlayers[2] = Player(12)
+    Globals.CreepPlayers[3] = Player(13)
+    Globals.CreepPlayers[4] = Player(14)
+    Globals.CreepPlayers[5] = Player(15)
     Logger:LogDebug("Num of Creep players: ", #Globals.CreepPlayers)
 end
 return ____exports

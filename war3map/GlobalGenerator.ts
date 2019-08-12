@@ -41,10 +41,10 @@ export class GlobalGenerator {
             print("I know friends are hard to find, but the " + computerPlayers + " computer/s is no substitute.");
         }
 
-        Globals.CreepPlayers.push(Player(12));
-        Globals.CreepPlayers.push(Player(13));
-        Globals.CreepPlayers.push(Player(14));
-        Globals.CreepPlayers.push(Player(15));
+        Globals.CreepPlayers[1] = Player(12);
+        Globals.CreepPlayers[2] = Player(13);
+        Globals.CreepPlayers[3] = Player(14);
+        Globals.CreepPlayers[4] = Player(15);
         Logger.LogDebug("Num of Creep players: ", Globals.CreepPlayers.length)
 
     }

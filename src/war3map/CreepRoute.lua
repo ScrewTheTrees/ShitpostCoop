@@ -77,21 +77,28 @@ function CreepRoute.new(...)
     self:____constructor(...)
     return self
 end
-function CreepRoute.prototype.____constructor(self, index)
-    self.waypoints = {}
-    self.myIndex = 0
+function CreepRoute.prototype.____constructor(self, index, creepPlayer)
+    self.wayPoints = {}
     self.myIndex = index
+    self.creepPlayer = creepPlayer
+    self.startPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
+    self.endPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
+    self:createWaypointList()
+    Logger:LogDebug("Total wayPoints " .. tostring(#self.wayPoints) .. " in route " .. tostring(self.myIndex))
+end
+function CreepRoute.prototype.createWaypointList(self)
     __TS__ArrayForEach(__TS__ObjectEntries(Globals.AllRegions), function(____, ____TS_bindingPattern0)
         local key = ____TS_bindingPattern0[1]
         local value = ____TS_bindingPattern0[2]
-        if __TS__StringStartsWith(key, "gg_rct_route") then
+        if __TS__StringStartsWith(key, "gg_rct_route" .. tostring(self.myIndex)) then
             local result = ShitEx:seperateNumbers(key)
             if result[3] == "waypoint" then
-                self.waypoints[__TS__Number(result[4]) + 1] = value
+                self.wayPoints[__TS__Number(result[4]) + 1] = value
                 Logger:LogDebug("Added waypoint " .. tostring(result[4]) .. " to route " .. tostring(result[2]))
             end
         end
     end)
-    Logger:LogDebug("Total waypoints " .. tostring(#self.waypoints) .. " in route " .. tostring(self.myIndex))
+end
+function CreepRoute.prototype.generateWaypoints(self)
 end
 return ____exports
