@@ -1,4 +1,4 @@
-gg_rct_spawn1 = nil
+gg_rct_route1spawn = nil
 gg_rct_route1waypoint1 = nil
 gg_rct_route1waypoint2 = nil
 gg_rct_route1waypoint3 = nil
@@ -6,13 +6,13 @@ gg_rct_route1waypoint4 = nil
 gg_rct_route1waypoint5 = nil
 gg_rct_route1waypoint6 = nil
 gg_rct_route1waypoint7 = nil
-gg_rct_end1 = nil
+gg_rct_route1end = nil
 function InitGlobals()
 end
 
 function CreateRegions()
     local we
-    gg_rct_spawn1 = Rect(-3520.0, 1984.0, -3136.0, 2368.0)
+    gg_rct_route1spawn = Rect(-3520.0, 1984.0, -3136.0, 2368.0)
     gg_rct_route1waypoint1 = Rect(-3456.0, 608.0, -3200.0, 800.0)
     gg_rct_route1waypoint2 = Rect(1600.0, 608.0, 1760.0, 896.0)
     gg_rct_route1waypoint3 = Rect(1536.0, -3200.0, 1792.0, -3040.0)
@@ -20,7 +20,7 @@ function CreateRegions()
     gg_rct_route1waypoint5 = Rect(768.0, -2336.0, 1024.0, -2176.0)
     gg_rct_route1waypoint6 = Rect(-384.0, -2432.0, -224.0, -2176.0)
     gg_rct_route1waypoint7 = Rect(-384.0, -800.0, -160.0, -640.0)
-    gg_rct_end1 = Rect(-3008.0, -960.0, -2624.0, -576.0)
+    gg_rct_route1end = Rect(-3008.0, -960.0, -2624.0, -576.0)
 end
 
 function InitCustomPlayerSlots()
