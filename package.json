@@ -5,9 +5,10 @@
   "version": "1.0.0",
   "scripts": {
     "fullRecompile": "npm run clean && npm run compileTypescript && npm run compileMap",
-    "compileMap": "npm run copyAssets && butt.bat",
+    "compileMap": "butt.bat",
     "compileTypescript": "tstl -p tsconfig.json",
-    "clean": "rimraf src/* && rimraf target/*"
+    "clean": "rimraf src/* && rimraf target/*",
+    "copyAssets": "cpx Assets/war3mapImported/**/* maps/ShitpostCoop.w3x/war3mapImported"
   },
   "directories": {
     "lib": "lib"

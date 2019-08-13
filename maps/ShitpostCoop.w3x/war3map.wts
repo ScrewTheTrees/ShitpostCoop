@@ -74,3 +74,27 @@ STRING 15
 Pathing Blocker Horizontal (Ground)
 }
 
+STRING 16
+// Destructibles: B001 (Pathing Blocker Vertical(Ground)), Name (Name)
+{
+Pathing Blocker Vertical(Ground)
+}
+
+STRING 17
+// Units: h000 (Wave1), Name (Name)
+{
+Wave1
+}
+
+STRING 18
+// Units: h000 (Wave1), Tip (Tooltip - Basic)
+{
+Wave1
+}
+
+STRING 19
+// Units: h000 (Wave1), Ubertip (Tooltip - Extended)
+{
+Wave1
+}
+

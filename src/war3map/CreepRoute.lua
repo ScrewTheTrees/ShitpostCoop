@@ -95,10 +95,11 @@ function CreepRoute.prototype.____constructor(self, index, creepPlayer)
     self.creepPlayer = creepPlayer
     self.startPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
     self.endPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
+    RemoveAllGuardPositions(self.creepPlayer)
     self:createWaypointList()
     self:generateWaypoints()
-    Logger:LogDebug("startPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.startPoint))
-    Logger:LogDebug("endPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.endPoint))
+    Logger:LogVerbose("startPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.startPoint))
+    Logger:LogVerbose("endPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.endPoint))
     Logger:LogDebug("Total wayPoints " .. tostring(#self.wayPoints) .. " in route " .. tostring(self.myIndex))
     Logger:LogDebug("Total triggers " .. tostring(#self.wayPointTriggers) .. " in route " .. tostring(self.myIndex))
 end
@@ -120,14 +121,14 @@ function CreepRoute.prototype.generateWaypoints(self)
         __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.startPoint, self.wayPoints[2]))
         do
             local i = 1
-            while i <= #self.wayPoints do
+            while i < #self.wayPoints - 1 do
                 local start = self.wayPoints[i + 1]
                 local ____end = self.wayPoints[(i + 1) + 1]
                 __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(start, ____end))
                 i = i + 1
             end
         end
-        __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.endPoint, self.wayPoints[#self.wayPoints + 1]))
+        __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.wayPoints[#self.wayPoints], self.endPoint))
     else
         __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.startPoint, self.endPoint))
     end
@@ -137,11 +138,10 @@ function CreepRoute.prototype.createWaypointTrigger(self, beginRect, endRect)
     local reg = CreateRegion()
     RegionAddRect(reg, beginRect)
     TriggerRegisterEnterRegion(newTrigger, reg, Filter(function()
-        print(GetOwningPlayer(GetFilterUnit()))
         return (GetOwningPlayer(GetFilterUnit()) == self.creepPlayer)
     end))
     TriggerAddAction(newTrigger, function()
-        local loc = GetRandomLocInRect(endRect)
+        local loc = GetRectCenter(endRect)
         IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc)
         RemoveLocation(loc)
     end)

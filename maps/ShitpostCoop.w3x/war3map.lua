@@ -14,35 +14,73 @@ gg_rct_route2waypoint3 = nil
 gg_rct_route2waypoint4 = nil
 gg_rct_route2waypoint5 = nil
 gg_rct_route2end = nil
+gg_rct_route3spawn = nil
+gg_rct_route3end = nil
+gg_rct_route3waypoint1 = nil
+gg_rct_route3waypoint2 = nil
+gg_rct_route3waypoint3 = nil
+gg_rct_route3waypoint4 = nil
+gg_rct_route3waypoint5 = nil
+gg_rct_route3waypoint6 = nil
+gg_rct_route3waypoint7 = nil
+gg_rct_route1waypoint8 = nil
+gg_rct_route1waypoint9 = nil
+gg_rct_route2waypoint6 = nil
+gg_rct_route2waypoint7 = nil
+gg_rct_route2waypoint8 = nil
+gg_rct_route2waypoint9 = nil
+gg_rct_route3waypoint8 = nil
+gg_rct_route3waypoint9 = nil
 function InitGlobals()
 end
 
 function CreateRegions()
     local we
-    gg_rct_route1spawn = Rect(-3488.0, 2208.0, -3168.0, 2336.0)
+    gg_rct_route1spawn = Rect(-3456.0, 2176.0, -3200.0, 2304.0)
     we = AddWeatherEffect(gg_rct_route1spawn, FourCC("MEds"))
     EnableWeatherEffect(we, true)
-    gg_rct_route1waypoint1 = Rect(-3456.0, 608.0, -3200.0, 736.0)
-    gg_rct_route1waypoint2 = Rect(1696.0, 640.0, 1824.0, 896.0)
-    gg_rct_route1waypoint3 = Rect(1504.0, -3200.0, 1792.0, -3072.0)
-    gg_rct_route1waypoint4 = Rect(768.0, -3168.0, 928.0, -2912.0)
-    gg_rct_route1waypoint5 = Rect(768.0, -2336.0, 1024.0, -2176.0)
-    gg_rct_route1waypoint6 = Rect(-384.0, -2432.0, -224.0, -2176.0)
-    gg_rct_route1waypoint7 = Rect(-384.0, -800.0, -160.0, -640.0)
-    gg_rct_route1end = Rect(-3008.0, -960.0, -2624.0, -576.0)
+    gg_rct_route1waypoint1 = Rect(-3392.0, 672.0, -3264.0, 800.0)
+    gg_rct_route1waypoint2 = Rect(-1344.0, 704.0, -1216.0, 832.0)
+    gg_rct_route1waypoint3 = Rect(1600.0, 704.0, 1728.0, 832.0)
+    gg_rct_route1waypoint4 = Rect(1600.0, -1216.0, 1728.0, -1088.0)
+    gg_rct_route1waypoint5 = Rect(1568.0, -3200.0, 1696.0, -3072.0)
+    gg_rct_route1waypoint6 = Rect(896.0, -3168.0, 1024.0, -3040.0)
+    gg_rct_route1waypoint7 = Rect(928.0, -2304.0, 1056.0, -2176.0)
+    gg_rct_route1end = Rect(-2944.0, -896.0, -2688.0, -640.0)
     we = AddWeatherEffect(gg_rct_route1end, FourCC("FDrh"))
     EnableWeatherEffect(we, true)
-    gg_rct_route2spawn = Rect(-1440.0, 2336.0, -1120.0, 2464.0)
+    gg_rct_route2spawn = Rect(-1408.0, 2304.0, -1152.0, 2432.0)
     we = AddWeatherEffect(gg_rct_route2spawn, FourCC("MEds"))
     EnableWeatherEffect(we, true)
-    gg_rct_route2waypoint1 = Rect(-1344.0, -128.0, -1152.0, 64.0)
-    gg_rct_route2waypoint2 = Rect(2368.0, -96.0, 2528.0, 64.0)
-    gg_rct_route2waypoint3 = Rect(2368.0, -3968.0, 2528.0, -3808.0)
-    gg_rct_route2waypoint4 = Rect(768.0, -3968.0, 928.0, -3808.0)
-    gg_rct_route2waypoint5 = Rect(800.0, -1568.0, 960.0, -1408.0)
-    gg_rct_route2end = Rect(-3008.0, -1728.0, -2624.0, -1344.0)
+    gg_rct_route2waypoint1 = Rect(-1408.0, -128.0, -1152.0, 0.0)
+    gg_rct_route2waypoint2 = Rect(512.0, -64.0, 608.0, 96.0)
+    gg_rct_route2waypoint3 = Rect(2400.0, -96.0, 2528.0, 32.0)
+    gg_rct_route2waypoint4 = Rect(2368.0, -1984.0, 2496.0, -1856.0)
+    gg_rct_route2waypoint5 = Rect(2368.0, -3936.0, 2496.0, -3808.0)
+    gg_rct_route2end = Rect(-2944.0, -1664.0, -2688.0, -1408.0)
     we = AddWeatherEffect(gg_rct_route2end, FourCC("FDrh"))
     EnableWeatherEffect(we, true)
+    gg_rct_route3spawn = Rect(768.0, 2304.0, 1024.0, 2432.0)
+    we = AddWeatherEffect(gg_rct_route3spawn, FourCC("MEds"))
+    EnableWeatherEffect(we, true)
+    gg_rct_route3end = Rect(-2944.0, -1280.0, -2688.0, -1024.0)
+    we = AddWeatherEffect(gg_rct_route3end, FourCC("FDrh"))
+    EnableWeatherEffect(we, true)
+    gg_rct_route3waypoint1 = Rect(832.0, 352.0, 960.0, 480.0)
+    gg_rct_route3waypoint2 = Rect(832.0, -864.0, 960.0, -736.0)
+    gg_rct_route3waypoint3 = Rect(3168.0, -832.0, 3296.0, -704.0)
+    gg_rct_route3waypoint4 = Rect(3136.0, -1632.0, 3264.0, -1504.0)
+    gg_rct_route3waypoint5 = Rect(1952.0, -1600.0, 2112.0, -1472.0)
+    gg_rct_route3waypoint6 = Rect(704.0, -1504.0, 832.0, -1376.0)
+    gg_rct_route3waypoint7 = Rect(736.0, -3264.0, 864.0, -3136.0)
+    gg_rct_route1waypoint8 = Rect(-352.0, -2336.0, -224.0, -2208.0)
+    gg_rct_route1waypoint9 = Rect(-320.0, -768.0, -192.0, -640.0)
+    gg_rct_route2waypoint6 = Rect(800.0, -3904.0, 928.0, -3776.0)
+    gg_rct_route2waypoint7 = Rect(832.0, -2432.0, 960.0, -2304.0)
+    gg_rct_route2waypoint8 = Rect(832.0, -1632.0, 960.0, -1504.0)
+    gg_rct_route2waypoint9 = Rect(-1024.0, -1600.0, -896.0, -1472.0)
+    gg_rct_route3waypoint8 = Rect(-1472.0, -3136.0, -1312.0, -3008.0)
+    gg_rct_route3waypoint9 = Rect(-1504.0, -1184.0, -1344.0, -1056.0)
 end
 
 function InitCustomPlayerSlots()

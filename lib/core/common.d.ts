@@ -324,7 +324,7 @@ declare function GroupClear(whichGroup: group): void
 declare function BlzGroupGetSize(whichGroup: group): number
 declare function BlzGroupUnitAt(whichGroup: group, index: number): unit
 declare function GroupEnumUnitsOfType(whichGroup: group, unitname: string, filter: boolexpr): void
-declare function GroupEnumUnitsOfPlayer(whichGroup: group, whichPlayer: player, filter: boolexpr): void
+declare function GroupEnumUnitsOfPlayer(whichGroup: group, whichPlayer: player, filter: boolexpr | null): void
 declare function GroupEnumUnitsOfTypeCounted(whichGroup: group, unitname: string, filter: boolexpr, countLimit: number): void
 declare function GroupEnumUnitsInRect(whichGroup: group, r: rect, filter: boolexpr): void
 declare function GroupEnumUnitsInRectCounted(whichGroup: group, r: rect, filter: boolexpr, countLimit: number): void
@@ -423,7 +423,7 @@ declare function TriggerRegisterDialogButtonEvent(whichTrigger: trigger, whichBu
 declare function GetEventGameState(): gamestate
 declare function TriggerRegisterGameEvent(whichTrigger: trigger, whichGameEvent: gameevent): event
 declare function GetWinningPlayer(): player
-declare function TriggerRegisterEnterRegion(whichTrigger: trigger, whichRegion: region, filter: boolexpr): event
+declare function TriggerRegisterEnterRegion(whichTrigger: trigger, whichRegion: region, filter: boolexpr | null): event
 declare function GetTriggeringRegion(): region
 declare function GetEnteringUnit(): unit
 declare function TriggerRegisterLeaveRegion(whichTrigger: trigger, whichRegion: region, filter: boolexpr): event
