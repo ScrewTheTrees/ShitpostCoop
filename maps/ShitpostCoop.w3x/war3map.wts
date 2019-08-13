@@ -80,21 +80,15 @@ STRING 16
 Pathing Blocker Vertical(Ground)
 }
 
-STRING 17
-// Units: h000 (Wave1), Name (Name)
+STRING 20
+// Units: h000 (FeetMen), Name (Name)
 {
-Wave1
+FeetMen
 }
 
-STRING 18
-// Units: h000 (Wave1), Tip (Tooltip - Basic)
+STRING 21
+// Units: h000 (FeetMen), EditorSuffix (Name - Editor Suffix)
 {
-Wave1
-}
-
-STRING 19
-// Units: h000 (Wave1), Ubertip (Tooltip - Extended)
-{
-Wave1
+(Wave 1)
 }
 

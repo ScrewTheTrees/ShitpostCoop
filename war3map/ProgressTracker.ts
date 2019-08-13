@@ -1,6 +1,5 @@
 export class ProgressTracker {
     public static lives: number = 30;
-    public static wave: number = 0;
 
     private static onExitRegion: trigger = CreateTrigger();
 
