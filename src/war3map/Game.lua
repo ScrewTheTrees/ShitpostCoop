@@ -1,13 +1,3 @@
--- Lua Library inline imports
---[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
-function __TS__ArrayPush(arr, ...)
-    local items = ({...})
-    for ____, item in ipairs(items) do
-        arr[#arr + 1] = item
-    end
-    return #arr
-end
-
 local ____exports = {}
 local __TSTL_GlobalGenerator = require("war3map.GlobalGenerator")
 local GlobalGenerator = __TSTL_GlobalGenerator.GlobalGenerator
@@ -32,6 +22,11 @@ function Game.prototype.____constructor(self)
     GlobalGenerator:run()
     FogEnableOff()
     FogMaskEnableOff()
-    __TS__ArrayPush(self.routes, CreepRoute.new(1, Globals.CreepPlayers[2]))
+    self.routes[2] = CreepRoute.new(1, Globals.CreepPlayers[2])
+    self.routes[3] = CreepRoute.new(2, Globals.CreepPlayers[3])
+    local route = self.routes[2]
+    local route2 = self.routes[3]
+    CreateUnit(route.creepPlayer, FourCC("hfoo"), GetRectCenterX(route.startPoint), GetRectCenterY(route.startPoint), bj_UNIT_FACING)
+    CreateUnit(route2.creepPlayer, FourCC("hfoo"), GetRectCenterX(route2.startPoint), GetRectCenterY(route2.startPoint), bj_UNIT_FACING)
 end
 return ____exports

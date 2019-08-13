@@ -7,20 +7,42 @@ gg_rct_route1waypoint5 = nil
 gg_rct_route1waypoint6 = nil
 gg_rct_route1waypoint7 = nil
 gg_rct_route1end = nil
+gg_rct_route2spawn = nil
+gg_rct_route2waypoint1 = nil
+gg_rct_route2waypoint2 = nil
+gg_rct_route2waypoint3 = nil
+gg_rct_route2waypoint4 = nil
+gg_rct_route2waypoint5 = nil
+gg_rct_route2end = nil
 function InitGlobals()
 end
 
 function CreateRegions()
     local we
-    gg_rct_route1spawn = Rect(-3520.0, 1984.0, -3136.0, 2368.0)
-    gg_rct_route1waypoint1 = Rect(-3456.0, 608.0, -3200.0, 800.0)
-    gg_rct_route1waypoint2 = Rect(1600.0, 608.0, 1760.0, 896.0)
-    gg_rct_route1waypoint3 = Rect(1536.0, -3200.0, 1792.0, -3040.0)
+    gg_rct_route1spawn = Rect(-3488.0, 2208.0, -3168.0, 2336.0)
+    we = AddWeatherEffect(gg_rct_route1spawn, FourCC("MEds"))
+    EnableWeatherEffect(we, true)
+    gg_rct_route1waypoint1 = Rect(-3456.0, 608.0, -3200.0, 736.0)
+    gg_rct_route1waypoint2 = Rect(1696.0, 640.0, 1824.0, 896.0)
+    gg_rct_route1waypoint3 = Rect(1504.0, -3200.0, 1792.0, -3072.0)
     gg_rct_route1waypoint4 = Rect(768.0, -3168.0, 928.0, -2912.0)
     gg_rct_route1waypoint5 = Rect(768.0, -2336.0, 1024.0, -2176.0)
     gg_rct_route1waypoint6 = Rect(-384.0, -2432.0, -224.0, -2176.0)
     gg_rct_route1waypoint7 = Rect(-384.0, -800.0, -160.0, -640.0)
     gg_rct_route1end = Rect(-3008.0, -960.0, -2624.0, -576.0)
+    we = AddWeatherEffect(gg_rct_route1end, FourCC("FDrh"))
+    EnableWeatherEffect(we, true)
+    gg_rct_route2spawn = Rect(-1440.0, 2336.0, -1120.0, 2464.0)
+    we = AddWeatherEffect(gg_rct_route2spawn, FourCC("MEds"))
+    EnableWeatherEffect(we, true)
+    gg_rct_route2waypoint1 = Rect(-1344.0, -128.0, -1152.0, 64.0)
+    gg_rct_route2waypoint2 = Rect(2368.0, -96.0, 2528.0, 64.0)
+    gg_rct_route2waypoint3 = Rect(2368.0, -3968.0, 2528.0, -3808.0)
+    gg_rct_route2waypoint4 = Rect(768.0, -3968.0, 928.0, -3808.0)
+    gg_rct_route2waypoint5 = Rect(800.0, -1568.0, 960.0, -1408.0)
+    gg_rct_route2end = Rect(-3008.0, -1728.0, -2624.0, -1344.0)
+    we = AddWeatherEffect(gg_rct_route2end, FourCC("FDrh"))
+    EnableWeatherEffect(we, true)
 end
 
 function InitCustomPlayerSlots()

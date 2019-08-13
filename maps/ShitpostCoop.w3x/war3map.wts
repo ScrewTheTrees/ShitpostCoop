@@ -68,3 +68,9 @@ STRING 14
 Force 2
 }
 
+STRING 15
+// Destructibles: B000 (Pathing Blocker Horizontal (Ground)), Name (Name)
+{
+Pathing Blocker Horizontal (Ground)
+}
+

@@ -58,6 +58,15 @@ function __TS__ArrayForEach(arr, callbackFn)
     end
 end
 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+function __TS__ArrayPush(arr, ...)
+    local items = ({...})
+    for ____, item in ipairs(items) do
+        arr[#arr + 1] = item
+    end
+    return #arr
+end
+
 local ____exports = {}
 local __TSTL_Globals = require("war3map.Globals")
 local Globals = __TSTL_Globals.Globals
@@ -65,6 +74,8 @@ local __TSTL_ShitEx = require("war3map.ShitEx")
 local ShitEx = __TSTL_ShitEx.ShitEx
 local __TSTL_Logger = require("war3map.Logger")
 local Logger = __TSTL_Logger.Logger
+local __TSTL_Orders = require("war3map.Orders")
+local Orders = __TSTL_Orders.Orders
 ____exports.CreepRoute = {}
 local CreepRoute = ____exports.CreepRoute
 CreepRoute.name = "CreepRoute"
@@ -79,12 +90,17 @@ function CreepRoute.new(...)
 end
 function CreepRoute.prototype.____constructor(self, index, creepPlayer)
     self.wayPoints = {}
+    self.wayPointTriggers = {}
     self.myIndex = index
     self.creepPlayer = creepPlayer
     self.startPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
     self.endPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
     self:createWaypointList()
+    self:generateWaypoints()
+    Logger:LogDebug("startPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.startPoint))
+    Logger:LogDebug("endPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.endPoint))
     Logger:LogDebug("Total wayPoints " .. tostring(#self.wayPoints) .. " in route " .. tostring(self.myIndex))
+    Logger:LogDebug("Total triggers " .. tostring(#self.wayPointTriggers) .. " in route " .. tostring(self.myIndex))
 end
 function CreepRoute.prototype.createWaypointList(self)
     __TS__ArrayForEach(__TS__ObjectEntries(Globals.AllRegions), function(____, ____TS_bindingPattern0)
@@ -94,11 +110,41 @@ function CreepRoute.prototype.createWaypointList(self)
             local result = ShitEx:seperateNumbers(key)
             if result[3] == "waypoint" then
                 self.wayPoints[__TS__Number(result[4]) + 1] = value
-                Logger:LogDebug("Added waypoint " .. tostring(result[4]) .. " to route " .. tostring(result[2]))
+                Logger:LogVerbose("Added waypoint " .. tostring(result[4]) .. " to route " .. tostring(result[2]))
             end
         end
     end)
 end
 function CreepRoute.prototype.generateWaypoints(self)
+    if #self.wayPoints > 0 then
+        __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.startPoint, self.wayPoints[2]))
+        do
+            local i = 1
+            while i <= #self.wayPoints do
+                local start = self.wayPoints[i + 1]
+                local ____end = self.wayPoints[(i + 1) + 1]
+                __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(start, ____end))
+                i = i + 1
+            end
+        end
+        __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.endPoint, self.wayPoints[#self.wayPoints + 1]))
+    else
+        __TS__ArrayPush(self.wayPointTriggers, self:createWaypointTrigger(self.startPoint, self.endPoint))
+    end
+end
+function CreepRoute.prototype.createWaypointTrigger(self, beginRect, endRect)
+    local newTrigger = CreateTrigger()
+    local reg = CreateRegion()
+    RegionAddRect(reg, beginRect)
+    TriggerRegisterEnterRegion(newTrigger, reg, Filter(function()
+        print(GetOwningPlayer(GetFilterUnit()))
+        return (GetOwningPlayer(GetFilterUnit()) == self.creepPlayer)
+    end))
+    TriggerAddAction(newTrigger, function()
+        local loc = GetRandomLocInRect(endRect)
+        IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc)
+        RemoveLocation(loc)
+    end)
+    return newTrigger
 end
 return ____exports
