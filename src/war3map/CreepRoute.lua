@@ -76,6 +76,8 @@ local __TSTL_Logger = require("war3map.Logger")
 local Logger = __TSTL_Logger.Logger
 local __TSTL_Orders = require("war3map.Orders")
 local Orders = __TSTL_Orders.Orders
+local __TSTL_Extension = require("war3map.Extension")
+local GetRandomLocInRectUnitSafe = __TSTL_Extension.GetRandomLocInRectUnitSafe
 ____exports.CreepRoute = {}
 local CreepRoute = ____exports.CreepRoute
 CreepRoute.name = "CreepRoute"
@@ -95,13 +97,18 @@ function CreepRoute.prototype.____constructor(self, index, creepPlayer)
     self.creepPlayer = creepPlayer
     self.startPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
     self.endPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
-    RemoveAllGuardPositions(self.creepPlayer)
     self:createWaypointList()
     self:generateWaypoints()
     Logger:LogVerbose("startPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.startPoint))
     Logger:LogVerbose("endPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.endPoint))
     Logger:LogDebug("Total wayPoints " .. tostring(#self.wayPoints) .. " in route " .. tostring(self.myIndex))
     Logger:LogDebug("Total triggers " .. tostring(#self.wayPointTriggers) .. " in route " .. tostring(self.myIndex))
+end
+function CreepRoute.prototype.spawnUnit(self, unitType)
+    local loc = GetRandomLocInRectUnitSafe(nil, self.startPoint)
+    local u = CreateUnitAtLoc(self.creepPlayer, unitType, loc, bj_UNIT_FACING)
+    RemoveGuardPosition(u)
+    RemoveLocation(loc)
 end
 function CreepRoute.prototype.createWaypointList(self)
     __TS__ArrayForEach(__TS__ObjectEntries(Globals.AllRegions), function(____, ____TS_bindingPattern0)
@@ -137,11 +144,12 @@ function CreepRoute.prototype.createWaypointTrigger(self, beginRect, endRect)
     local newTrigger = CreateTrigger()
     local reg = CreateRegion()
     RegionAddRect(reg, beginRect)
-    TriggerRegisterEnterRegion(newTrigger, reg, Filter(function()
-        return (GetOwningPlayer(GetFilterUnit()) == self.creepPlayer)
+    TriggerRegisterEnterRegion(newTrigger, reg, nil)
+    TriggerAddCondition(newTrigger, Condition(function()
+        return (GetOwningPlayer(GetEnteringUnit()) == self.creepPlayer)
     end))
     TriggerAddAction(newTrigger, function()
-        local loc = GetRectCenter(endRect)
+        local loc = GetRandomLocInRectUnitSafe(nil, endRect)
         IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc)
         RemoveLocation(loc)
     end)

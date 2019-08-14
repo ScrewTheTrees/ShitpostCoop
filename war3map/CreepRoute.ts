@@ -2,13 +2,14 @@ import {Globals} from "./Globals";
 import {ShitEx} from "./ShitEx";
 import {Logger} from "./Logger";
 import {Orders} from "./Orders";
+import {GetRandomLocInRectUnitSafe} from "./ExtensionFunctions";
 
 export class CreepRoute {
-    public wayPoints: rect[] = [];
+    private wayPoints: rect[] = [];
     public startPoint: rect;
     public endPoint: rect;
-    public myIndex: number;
-    public creepPlayer: player;
+    public readonly myIndex: number;
+    public readonly creepPlayer: player;
     private wayPointTriggers: trigger[] = [];
 
     constructor(index: number, creepPlayer: player) {
@@ -17,8 +18,6 @@ export class CreepRoute {
         this.startPoint = Globals.AllRegions["gg_rct_route" + this.myIndex + "spawn"];
         this.endPoint = Globals.AllRegions["gg_rct_route" + this.myIndex + "end"];
 
-        RemoveAllGuardPositions(this.creepPlayer);
-
         this.createWaypointList();
         this.generateWaypoints();
         Logger.LogVerbose(`startPoint in route ${this.myIndex}  -  ${this.startPoint}`);
@@ -26,6 +25,13 @@ export class CreepRoute {
         Logger.LogDebug(`Total wayPoints ${this.wayPoints.length} in route ${this.myIndex}`);
         Logger.LogDebug(`Total triggers ${this.wayPointTriggers.length} in route ${this.myIndex}`);
 
+    }
+
+    public spawnUnit(unitType: number) {
+        const loc = GetRandomLocInRectUnitSafe(this.startPoint);
+        let u = CreateUnitAtLoc(this.creepPlayer, unitType, loc, bj_UNIT_FACING);
+        RemoveGuardPosition(u);
+        RemoveLocation(loc);
     }
 
 
@@ -56,19 +62,20 @@ export class CreepRoute {
         } else {
             this.wayPointTriggers.push(this.createWaypointTrigger(this.startPoint, this.endPoint));
         }
-
-
     }
 
     private createWaypointTrigger(beginRect: rect, endRect: rect): trigger {
         const newTrigger = CreateTrigger();
         const reg = CreateRegion();
         RegionAddRect(reg, beginRect);
-        TriggerRegisterEnterRegion(newTrigger, reg, Filter(() => {
-            return (GetOwningPlayer(GetFilterUnit()) == this.creepPlayer)
+        TriggerRegisterEnterRegion(newTrigger, reg, null);
+        TriggerAddCondition(newTrigger, Condition(() => {
+            return (GetOwningPlayer(GetEnteringUnit()) == this.creepPlayer);
         }));
         TriggerAddAction(newTrigger, () => {
-            const loc = GetRectCenter(endRect);
+            //const loc = GetRectCenter(endRect);
+            const loc = GetRandomLocInRectUnitSafe(endRect);
+
             IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc);
             RemoveLocation(loc);
         });

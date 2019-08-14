@@ -17,7 +17,6 @@ export class ProgressTracker {
         TriggerRegisterEnterRegion(this.onExitRegion, reg, Filter(() => {
             return (GetOwningPlayer(GetFilterUnit()) == creepPlayer);
         }));
-
     }
 }
 ProgressTracker.initialize();

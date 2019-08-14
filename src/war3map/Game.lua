@@ -1,3 +1,13 @@
+-- Lua Library inline imports
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+function __TS__ArrayPush(arr, ...)
+    local items = ({...})
+    for ____, item in ipairs(items) do
+        arr[#arr + 1] = item
+    end
+    return #arr
+end
+
 local ____exports = {}
 local __TSTL_GlobalGenerator = require("war3map.GlobalGenerator")
 local GlobalGenerator = __TSTL_GlobalGenerator.GlobalGenerator
@@ -7,6 +17,8 @@ local __TSTL_Globals = require("war3map.Globals")
 local Globals = __TSTL_Globals.Globals
 local __TSTL_ProgressTracker = require("war3map.ProgressTracker")
 local ProgressTracker = __TSTL_ProgressTracker.ProgressTracker
+local __TSTL_WaveHandler = require("war3map.WaveHandler")
+local WaveHandler = __TSTL_WaveHandler.WaveHandler
 ____exports.Game = {}
 local Game = ____exports.Game
 Game.name = "Game"
@@ -30,17 +42,17 @@ function Game.prototype.____constructor(self)
     local route = self.routes[2]
     local route2 = self.routes[3]
     local route3 = self.routes[4]
-    local doSpawn = true
-    local clock = CreateTrigger()
-    TriggerRegisterTimerEvent(clock, 1, true)
-    TriggerAddAction(clock, function()
-        if doSpawn then
-            CreateUnit(route.creepPlayer, FourCC("h000"), GetRectCenterX(route.startPoint), GetRectCenterY(route.startPoint), bj_UNIT_FACING)
-            CreateUnit(route2.creepPlayer, FourCC("h000"), GetRectCenterX(route2.startPoint), GetRectCenterY(route2.startPoint), bj_UNIT_FACING)
-            CreateUnit(route3.creepPlayer, FourCC("h000"), GetRectCenterX(route3.startPoint), GetRectCenterY(route3.startPoint), bj_UNIT_FACING)
-        end
-        doSpawn = (____exports.Game:GetNumOfPlayerUnits(route.creepPlayer) + ____exports.Game:GetNumOfPlayerUnits(route2.creepPlayer) + ____exports.Game:GetNumOfPlayerUnits(route3.creepPlayer) < 60)
+    local waveHandler = WaveHandler.new()
+    __TS__ArrayPush(waveHandler.sendSpawnSignal, function(____, wave)
+        route:spawnUnit(wave.unitType)
     end)
+    __TS__ArrayPush(waveHandler.sendSpawnSignal, function(____, wave)
+        route2:spawnUnit(wave.unitType)
+    end)
+    __TS__ArrayPush(waveHandler.sendSpawnSignal, function(____, wave)
+        route3:spawnUnit(wave.unitType)
+    end)
+    waveHandler:startWaveTimer()
     ProgressTracker:AddCreepExitRegion(route.endPoint, route.creepPlayer)
     ProgressTracker:AddCreepExitRegion(route2.endPoint, route2.creepPlayer)
     ProgressTracker:AddCreepExitRegion(route3.endPoint, route3.creepPlayer)
