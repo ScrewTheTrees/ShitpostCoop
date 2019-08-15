@@ -76,8 +76,8 @@ local __TSTL_Logger = require("war3map.Logger")
 local Logger = __TSTL_Logger.Logger
 local __TSTL_Orders = require("war3map.Orders")
 local Orders = __TSTL_Orders.Orders
-local __TSTL_Extension = require("war3map.Extension")
-local GetRandomLocInRectUnitSafe = __TSTL_Extension.GetRandomLocInRectUnitSafe
+local __TSTL_ExtensionFunctions = require("war3map.ExtensionFunctions")
+local GetRandomLocInRectUnitSafe = __TSTL_ExtensionFunctions.GetRandomLocInRectUnitSafe
 ____exports.CreepRoute = {}
 local CreepRoute = ____exports.CreepRoute
 CreepRoute.name = "CreepRoute"
@@ -106,8 +106,7 @@ function CreepRoute.prototype.____constructor(self, index, creepPlayer)
 end
 function CreepRoute.prototype.spawnUnit(self, unitType)
     local loc = GetRandomLocInRectUnitSafe(nil, self.startPoint)
-    local u = CreateUnitAtLoc(self.creepPlayer, unitType, loc, bj_UNIT_FACING)
-    RemoveGuardPosition(u)
+    CreateUnitAtLoc(self.creepPlayer, unitType, loc, bj_UNIT_FACING)
     RemoveLocation(loc)
 end
 function CreepRoute.prototype.createWaypointList(self)
@@ -150,7 +149,7 @@ function CreepRoute.prototype.createWaypointTrigger(self, beginRect, endRect)
     end))
     TriggerAddAction(newTrigger, function()
         local loc = GetRandomLocInRectUnitSafe(nil, endRect)
-        IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc)
+        IssuePointOrderLoc(GetEnteringUnit(), Orders.patrol, loc)
         RemoveLocation(loc)
     end)
     return newTrigger

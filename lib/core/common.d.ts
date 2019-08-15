@@ -440,7 +440,7 @@ declare function GetTournamentScore(whichPlayer: player): number
 declare function GetSaveBasicFilename(): string
 declare function TriggerRegisterPlayerEvent(whichTrigger: trigger, whichPlayer: player, whichPlayerEvent: playerevent): event
 declare function GetTriggerPlayer(): player
-declare function TriggerRegisterPlayerUnitEvent(whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr): event
+declare function TriggerRegisterPlayerUnitEvent(whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr | null): event
 declare function GetLevelingUnit(): unit
 declare function GetLearningUnit(): unit
 declare function GetLearnedSkill(): number

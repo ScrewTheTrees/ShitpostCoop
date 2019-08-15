@@ -29,8 +29,7 @@ export class CreepRoute {
 
     public spawnUnit(unitType: number) {
         const loc = GetRandomLocInRectUnitSafe(this.startPoint);
-        let u = CreateUnitAtLoc(this.creepPlayer, unitType, loc, bj_UNIT_FACING);
-        RemoveGuardPosition(u);
+        CreateUnitAtLoc(this.creepPlayer, unitType, loc, bj_UNIT_FACING);
         RemoveLocation(loc);
     }
 
@@ -73,10 +72,9 @@ export class CreepRoute {
             return (GetOwningPlayer(GetEnteringUnit()) == this.creepPlayer);
         }));
         TriggerAddAction(newTrigger, () => {
-            //const loc = GetRectCenter(endRect);
             const loc = GetRandomLocInRectUnitSafe(endRect);
 
-            IssuePointOrderLoc(GetEnteringUnit(), Orders.move, loc);
+            IssuePointOrderLoc(GetEnteringUnit(), Orders.patrol, loc);
             RemoveLocation(loc);
         });
 

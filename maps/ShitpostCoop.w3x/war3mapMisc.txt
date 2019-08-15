@@ -9,7 +9,6 @@ DamageBonusSiege=1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
 DamageBonusSpells=1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
 DefenseArmor=0.01
 EtherealDamageBonus=1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00
-FoodCeiling=
 GrantHeroXP=200
 HeroAbilityLevelSkip=3
 HeroExpRange=100000.0

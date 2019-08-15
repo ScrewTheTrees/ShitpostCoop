@@ -1,6 +1,6 @@
 export function GetRandomLocInRectUnitSafe(endRect: rect) {
     return Location(
-        GetRandomReal(GetRectMinX(endRect) + 24, GetRectMaxX(endRect) - 24),
-        GetRandomReal(GetRectMinY(endRect) + 24, GetRectMaxY(endRect) - 24),
+        GetRandomReal(GetRectMinX(endRect) + 32, GetRectMaxX(endRect) - 32),
+        GetRandomReal(GetRectMinY(endRect) + 32, GetRectMaxY(endRect) - 32),
     );
 }
