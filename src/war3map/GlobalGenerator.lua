@@ -78,8 +78,8 @@ function GlobalGenerator.generatePlayers(self)
         local i = 0
         while i < Globals.MaxPlayerSlots do
             local targetPlayer = Player(i)
-            if true then
-                if true then
+            if GetPlayerSlotState(targetPlayer) == PLAYER_SLOT_STATE_PLAYING then
+                if GetPlayerController(targetPlayer) == MAP_CONTROL_USER then
                     __TS__ArrayPush(Globals.ActivePlayers, targetPlayer)
                     print(tostring(GetPlayerName(targetPlayer)) .. " is up for the task.")
                 else

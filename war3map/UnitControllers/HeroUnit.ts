@@ -1,11 +1,16 @@
-export class HeroUnit {
-    public static HERO_POTM: HeroUnit = new HeroUnit("E000", 6);
+import {HeroAttack} from "../AttackControllers/HeroAttack";
 
+export class HeroUnit {
+    public static HERO_POTM: HeroUnit = new HeroUnit("E000", 6, new HeroAttack(1));
+
+    public readonly attackSpellId: number = FourCC("A000");
     public readonly unitType: number;
     public readonly walkAnimationIndex: number;
+    public readonly heroAttack: HeroAttack;
 
-    constructor(unitType: string, walkAnimationIndex: number) {
+    constructor(unitType: string, walkAnimationIndex: number, heroAttack: HeroAttack) {
         this.unitType = FourCC(unitType);
         this.walkAnimationIndex = walkAnimationIndex;
+        this.heroAttack = heroAttack;
     }
 }

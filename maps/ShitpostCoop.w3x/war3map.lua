@@ -34,7 +34,6 @@ gg_rct_route3waypoint9 = nil
 gg_rct_route3waypoint10 = nil
 gg_rct_route3waypoint12 = nil
 gg_rct_route3waypoint11 = nil
-gg_trg_Untitled_Trigger_001 = nil
 function InitGlobals()
 end
 
@@ -82,20 +81,6 @@ function CreateRegions()
     gg_rct_route3waypoint10 = Rect(384.0, -3296.0, 512.0, -2848.0)
     gg_rct_route3waypoint12 = Rect(-1632.0, -1088.0, -1184.0, -960.0)
     gg_rct_route3waypoint11 = Rect(-1600.0, -3296.0, -1472.0, -2848.0)
-end
-
-function Trig_Untitled_Trigger_001_Actions()
-    IssuePointOrderLocBJ(nil, "attack", GetRectCenter(GetPlayableMapRect()))
-end
-
-function InitTrig_Untitled_Trigger_001()
-    gg_trg_Untitled_Trigger_001 = CreateTrigger()
-    TriggerRegisterPlayerUnitEventSimple(gg_trg_Untitled_Trigger_001, Player(0), EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER)
-    TriggerAddAction(gg_trg_Untitled_Trigger_001, Trig_Untitled_Trigger_001_Actions)
-end
-
-function InitCustomTriggers()
-    InitTrig_Untitled_Trigger_001()
 end
 
 function InitCustomPlayerSlots()
@@ -261,7 +246,6 @@ function main()
     CreateRegions()
     InitBlizzard()
     InitGlobals()
-    InitCustomTriggers()
 end
 
 function config()

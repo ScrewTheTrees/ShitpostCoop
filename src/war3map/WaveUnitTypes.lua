@@ -14,15 +14,15 @@ end
 function WaveUnitTypes.prototype.____constructor(self)
 end
 function WaveUnitTypes.init(self)
-    self.unitTypes[2] = FourCC("h000")
+    ____exports.WaveUnitTypes.unitTypes[2] = FourCC("h000")
 end
 function WaveUnitTypes.get(self, index)
-    local ret = self.unitTypes[index + 1]
+    local ret = ____exports.WaveUnitTypes.unitTypes[index + 1]
     if not ret then
-        ret = self.unitTypes[GetRandomInt(1, #self.unitTypes - 1) + 1]
+        ret = ____exports.WaveUnitTypes.unitTypes[GetRandomInt(1, #____exports.WaveUnitTypes.unitTypes - 1) + 1]
     end
     return ret
 end
 WaveUnitTypes.unitTypes = {}
-____exports.WaveUnitTypes:init()
+ceres.addHook("main::after", ____exports.WaveUnitTypes.init)
 return ____exports

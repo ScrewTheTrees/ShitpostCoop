@@ -1,22 +1,22 @@
 export class ProgressTracker {
     public static lives: number = 30;
 
-    private static onExitRegion: trigger = CreateTrigger();
+    private static onExitRegion: trigger;
 
-    public static initialize() {
-        TriggerAddAction(this.onExitRegion, () => {
+    public static init() {
+        ProgressTracker.onExitRegion = CreateTrigger();
+        TriggerAddAction(ProgressTracker.onExitRegion, () => {
             RemoveUnit(GetEnteringUnit());
-            this.lives -= 1;
+            ProgressTracker.lives -= 1;
         });
     }
-
 
     public static AddCreepExitRegion(enter: rect, creepPlayer: player) {
         const reg = CreateRegion();
         RegionAddRect(reg, enter);
-        TriggerRegisterEnterRegion(this.onExitRegion, reg, Filter(() => {
+        TriggerRegisterEnterRegion(ProgressTracker.onExitRegion, reg, Filter(() => {
             return (GetOwningPlayer(GetFilterUnit()) == creepPlayer);
         }));
     }
 }
-ProgressTracker.initialize();
+ceres.addHook("main::after", ProgressTracker.init);

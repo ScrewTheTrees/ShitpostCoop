@@ -14,7 +14,7 @@ export class BasicUnitController implements IUnitController {
 
     moveUnit(toDirection: number) {
         let speed = GetUnitMoveSpeed(this.targetUnit) / 100;
-        this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, GetUnitTurnSpeed(this.targetUnit) * 10);
+        this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, GetUnitTurnSpeed(this.targetUnit) * 50);
         let currLoc = GetUnitLoc(this.targetUnit);
         currLoc = PolarProjectionBJ(currLoc, speed, this.currentDirection);
         SetUnitPositionLoc(this.targetUnit, currLoc);

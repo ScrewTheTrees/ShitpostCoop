@@ -98,3 +98,15 @@ STRING 22
 Cum
 }
 
+STRING 23
+// Abilities: A000 (ExecuteAttack), Tip (Tooltip - Normal)
+{
+ExecuteAttack
+}
+
+STRING 24
+// Abilities: A000 (ExecuteAttack), Name (Name)
+{
+ExecuteAttack
+}
+

@@ -85,7 +85,6 @@ function Game.prototype.createPlayers(self)
         local i = 0
         while i < #Globals.ActivePlayers do
             local targetPlayer = Globals.ActivePlayers[i + 1]
-            print(targetPlayer)
             local fogMod = CreateFogModifierRect(targetPlayer, FOG_OF_WAR_VISIBLE, GetEntireMapRect(), false, false)
             FogModifierStart(fogMod)
             local pc = PlayerController.new(targetPlayer)

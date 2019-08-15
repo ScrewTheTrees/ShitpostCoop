@@ -1,4 +1,6 @@
 local ____exports = {}
+local __TSTL_HeroAttack = require("war3map.AttackControllers.HeroAttack")
+local HeroAttack = __TSTL_HeroAttack.HeroAttack
 ____exports.HeroUnit = {}
 local HeroUnit = ____exports.HeroUnit
 HeroUnit.name = "HeroUnit"
@@ -11,9 +13,11 @@ function HeroUnit.new(...)
     self:____constructor(...)
     return self
 end
-function HeroUnit.prototype.____constructor(self, unitType, walkAnimationIndex)
+function HeroUnit.prototype.____constructor(self, unitType, walkAnimationIndex, heroAttack)
+    self.attackSpellId = FourCC("A000")
     self.unitType = FourCC(unitType)
     self.walkAnimationIndex = walkAnimationIndex
+    self.heroAttack = heroAttack
 end
-HeroUnit.HERO_POTM = ____exports.HeroUnit.new("E000", 6)
+HeroUnit.HERO_POTM = ____exports.HeroUnit.new("E000", 6, HeroAttack.new(1))
 return ____exports

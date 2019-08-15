@@ -13,20 +13,20 @@ function ProgressTracker.new(...)
 end
 function ProgressTracker.prototype.____constructor(self)
 end
-function ProgressTracker.initialize(self)
-    TriggerAddAction(self.onExitRegion, function()
+function ProgressTracker.init(self)
+    ____exports.ProgressTracker.onExitRegion = CreateTrigger()
+    TriggerAddAction(____exports.ProgressTracker.onExitRegion, function()
         RemoveUnit(GetEnteringUnit())
-        self.lives = self.lives - 1
+        ____exports.ProgressTracker.lives = ____exports.ProgressTracker.lives - 1
     end)
 end
 function ProgressTracker.AddCreepExitRegion(self, enter, creepPlayer)
     local reg = CreateRegion()
     RegionAddRect(reg, enter)
-    TriggerRegisterEnterRegion(self.onExitRegion, reg, Filter(function()
+    TriggerRegisterEnterRegion(____exports.ProgressTracker.onExitRegion, reg, Filter(function()
         return (GetOwningPlayer(GetFilterUnit()) == creepPlayer)
     end))
 end
 ProgressTracker.lives = 30
-ProgressTracker.onExitRegion = CreateTrigger()
-____exports.ProgressTracker:initialize()
+ceres.addHook("main::after", ____exports.ProgressTracker.init)
 return ____exports

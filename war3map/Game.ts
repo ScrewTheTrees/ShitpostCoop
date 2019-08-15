@@ -40,7 +40,7 @@ export class Game {
         });
         this.waveHandler.startWaveTimer();
 
-        this.createPlayers()
+        this.createPlayers();
 
         ProgressTracker.AddCreepExitRegion(route.endPoint, route.creepPlayer);
         ProgressTracker.AddCreepExitRegion(route2.endPoint, route2.creepPlayer);

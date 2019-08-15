@@ -1,1 +1,1 @@
-{"version":3,"sources":["HeroUnit.ts"],"names":[],"mappings":";AAAA;MAAa;AAAb;AAAA;AAAA;AAAA;AAAA;;;;;;AAMI,kDAAY,UAAkB;AAC1B,oBAAgB,OAAO;AACvB,8BAA0B;;qBAPM,yBAAa,QAAQ","file":"HeroUnit.lua","sourceRoot":".."}
+{"version":3,"sources":["HeroUnit.ts"],"names":[],"mappings":";0BAAyB;MAAjB;AAER;MAAa;AAAb;AAAA;AAAA;AAAA;AAAA;;;;;;AAQI,kDAAY,UAAkB,oBAA4B;AAL1D,yBAAwC,OAAO;AAM3C,oBAAgB,OAAO;AACvB,8BAA0B;AAC1B,sBAAkB;;qBAVc,yBAAa,QAAQ,GAAG,eAAe","file":"HeroUnit.lua","sourceRoot":".."}

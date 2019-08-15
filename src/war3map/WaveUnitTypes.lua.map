@@ -1,1 +1,1 @@
-{"version":3,"sources":["WaveUnitTypes.ts"],"names":[],"mappings":";AAAA;MAAa;AAAb;AAAA;AAAA;AAAA;AAAA;;;;;;;;AAGI;AACI,mBAAe,KAAK,OAAO;;AAG/B,iCAAkB;UACV,MAAM,eAAe;WACpB;AACD,cAAM,eAAe,aAAa,GAAG,kBAAwB;;AAGjE,WAAO;;0BAZyB;AAgBxC,0BAAc","file":"WaveUnitTypes.lua","sourceRoot":".."}
+{"version":3,"sources":["WaveUnitTypes.ts"],"names":[],"mappings":";AAAA;MAAa;AAAb;AAAA;AAAA;AAAA;AAAA;;;;;;;;AAGI;AACI,wCAAwB,KAAK,OAAO;;AAGxC,iCAAkB;UACV,MAAM,oCAAwB;WAC7B;AACD,cAAM,oCAAwB,aAAa,GAAG,uCAAiC;;AAGnF,WAAO;;0BAZyB;AAgBxC,cAAc,eAAe","file":"WaveUnitTypes.lua","sourceRoot":".."}
