@@ -15,10 +15,11 @@ function BasicUnitController.prototype.____constructor(self, targetUnit, heroUni
     self.currentDirection = bj_UNIT_FACING
     self.targetUnit = targetUnit
     self.walkAnimationIndex = heroUnit.walkAnimationIndex
+    self.heroUnit = heroUnit
 end
 function BasicUnitController.prototype.moveUnit(self, toDirection)
     local speed = GetUnitMoveSpeed(self.targetUnit) / 100
-    self.currentDirection = self:rotateToPoint(self.currentDirection, toDirection, GetUnitTurnSpeed(self.targetUnit) * 10)
+    self.currentDirection = self:rotateToPoint(self.currentDirection, toDirection, 180)
     local currLoc = GetUnitLoc(self.targetUnit)
     currLoc = PolarProjectionBJ(currLoc, speed, self.currentDirection)
     SetUnitPositionLoc(self.targetUnit, currLoc)

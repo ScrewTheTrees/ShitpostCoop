@@ -5,16 +5,19 @@ export class BasicUnitController implements IUnitController {
     private readonly targetUnit: unit;
     private readonly walkAnimationIndex: number;
     private currentDirection: number = bj_UNIT_FACING;
+    public heroUnit: HeroUnit;
 
 
     constructor(targetUnit: unit, heroUnit: HeroUnit) {
         this.targetUnit = targetUnit;
         this.walkAnimationIndex = heroUnit.walkAnimationIndex;
+        this.heroUnit = heroUnit;
+
     }
 
     moveUnit(toDirection: number) {
         let speed = GetUnitMoveSpeed(this.targetUnit) / 100;
-        this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, GetUnitTurnSpeed(this.targetUnit) * 50);
+        this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, 180);
         let currLoc = GetUnitLoc(this.targetUnit);
         currLoc = PolarProjectionBJ(currLoc, speed, this.currentDirection);
         SetUnitPositionLoc(this.targetUnit, currLoc);
