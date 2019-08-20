@@ -1,4 +1,4 @@
-import {Globals} from "./Globals";
+import {Global} from "./Global";
 import {Logger} from "./Logger";
 
 export class GlobalGenerator {
@@ -15,18 +15,18 @@ export class GlobalGenerator {
     }
 
     private static handleRegion(key : string, value : rect) {
-        Globals.AllRegions[key] = value;
-        Logger.LogVerbose(Globals.AllRegions[key]);
+        Global.AllRegions[key] = value;
+        Logger.LogVerbose(Global.AllRegions[key]);
     }
 
     private static generatePlayers() {
         let computerPlayers = 0;
 
-        for (let i = 0; i < Globals.MaxPlayerSlots; i++) {
+        for (let i = 0; i < Global.MaxPlayerSlots; i++) {
             const targetPlayer = Player(i);
             if (GetPlayerSlotState(targetPlayer) == PLAYER_SLOT_STATE_PLAYING) {
                 if (GetPlayerController(targetPlayer) == MAP_CONTROL_USER) {
-                    Globals.ActivePlayers.push(targetPlayer);
+                    Global.ActivePlayers.push(targetPlayer);
                     print(GetPlayerName(targetPlayer) + " is up for the task.");
                 } else {
                     computerPlayers += 1;
@@ -41,11 +41,11 @@ export class GlobalGenerator {
             print("I know friends are hard to find, but the " + computerPlayers + " computer/s is no substitute.");
         }
 
-        Globals.CreepPlayers[1] = Player(12);
-        Globals.CreepPlayers[2] = Player(13);
-        Globals.CreepPlayers[3] = Player(14);
-        Globals.CreepPlayers[4] = Player(15);
-        Logger.LogDebug("Num of Creep players: ", Globals.CreepPlayers.length)
+        Global.CreepPlayers[1] = Player(12);
+        Global.CreepPlayers[2] = Player(13);
+        Global.CreepPlayers[3] = Player(14);
+        Global.CreepPlayers[4] = Player(15);
+        Logger.LogDebug("Num of Creep players: ", Global.CreepPlayers.length)
 
     }
 }

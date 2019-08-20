@@ -13,8 +13,8 @@ local __TSTL_GlobalGenerator = require("war3map.GlobalGenerator")
 local GlobalGenerator = __TSTL_GlobalGenerator.GlobalGenerator
 local __TSTL_CreepRoute = require("war3map.CreepRoute")
 local CreepRoute = __TSTL_CreepRoute.CreepRoute
-local __TSTL_Globals = require("war3map.Globals")
-local Globals = __TSTL_Globals.Globals
+local __TSTL_Global = require("war3map.Global")
+local Global = __TSTL_Global.Global
 local __TSTL_ProgressTracker = require("war3map.ProgressTracker")
 local ProgressTracker = __TSTL_ProgressTracker.ProgressTracker
 local __TSTL_WaveHandler = require("war3map.WaveHandler")
@@ -45,9 +45,9 @@ function Game.prototype.____constructor(self)
     GlobalGenerator:run()
     self.mapTimers = MapTimers.new()
     self.mapTimers:init()
-    self.routes[2] = CreepRoute.new(1, Globals.CreepPlayers[2])
-    self.routes[3] = CreepRoute.new(2, Globals.CreepPlayers[3])
-    self.routes[4] = CreepRoute.new(3, Globals.CreepPlayers[4])
+    self.routes[2] = CreepRoute.new(1, Global.CreepPlayers[2])
+    self.routes[3] = CreepRoute.new(2, Global.CreepPlayers[3])
+    self.routes[4] = CreepRoute.new(3, Global.CreepPlayers[4])
     local route = self.routes[2]
     local route2 = self.routes[3]
     local route3 = self.routes[4]
@@ -83,8 +83,8 @@ end
 function Game.prototype.createPlayers(self)
     do
         local i = 0
-        while i < #Globals.ActivePlayers do
-            local targetPlayer = Globals.ActivePlayers[i + 1]
+        while i < #Global.ActivePlayers do
+            local targetPlayer = Global.ActivePlayers[i + 1]
             local fogMod = CreateFogModifierRect(targetPlayer, FOG_OF_WAR_VISIBLE, GetEntireMapRect(), false, false)
             FogModifierStart(fogMod)
             local pc = PlayerController.new(targetPlayer)

@@ -30,4 +30,12 @@ export abstract class Entity {
     }
 
     abstract step(): void;
+
+    public remove() {
+        let index = Entity.entities.indexOf(this);
+        if (index != -1) {
+            Entity.entities.splice(index, 1);
+        }
+
+    }
 }

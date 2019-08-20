@@ -20,5 +20,5 @@ function HeroUnit.prototype.____constructor(self, unitType, walkAnimationIndex, 
     self.walkAnimationIndex = walkAnimationIndex
     self.heroAttack = heroAttack
 end
-HeroUnit.HERO_POTM = ____exports.HeroUnit.new("E000", 6, HeroAttack.new(0.6))
+HeroUnit.HERO_POTM = ____exports.HeroUnit.new("E000", 6, HeroAttack.new(0.6, 0.4))
 return ____exports

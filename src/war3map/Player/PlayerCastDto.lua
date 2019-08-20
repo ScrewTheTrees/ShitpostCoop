@@ -12,6 +12,7 @@ function PlayerCastDto.new(...)
     return self
 end
 function PlayerCastDto.prototype.____constructor(self, castLoc)
+    self.disableAbility = false
     self.castLoc = castLoc
 end
 function PlayerCastDto.prototype.destruct(self)

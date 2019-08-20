@@ -68,8 +68,8 @@ function __TS__ArrayPush(arr, ...)
 end
 
 local ____exports = {}
-local __TSTL_Globals = require("war3map.Globals")
-local Globals = __TSTL_Globals.Globals
+local __TSTL_Global = require("war3map.Global")
+local Global = __TSTL_Global.Global
 local __TSTL_ShitEx = require("war3map.ShitEx")
 local ShitEx = __TSTL_ShitEx.ShitEx
 local __TSTL_Logger = require("war3map.Logger")
@@ -95,8 +95,8 @@ function CreepRoute.prototype.____constructor(self, index, creepPlayer)
     self.wayPointTriggers = {}
     self.myIndex = index
     self.creepPlayer = creepPlayer
-    self.startPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
-    self.endPoint = Globals.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
+    self.startPoint = Global.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "spawn"]
+    self.endPoint = Global.AllRegions["gg_rct_route" .. tostring(self.myIndex) .. "end"]
     self:createWaypointList()
     self:generateWaypoints()
     Logger:LogVerbose("startPoint in route " .. tostring(self.myIndex) .. "  -  " .. tostring(self.startPoint))
@@ -106,11 +106,12 @@ function CreepRoute.prototype.____constructor(self, index, creepPlayer)
 end
 function CreepRoute.prototype.spawnUnit(self, unitType)
     local loc = GetRandomLocInRectUnitSafe(nil, self.startPoint)
-    CreateUnitAtLoc(self.creepPlayer, unitType, loc, bj_UNIT_FACING)
+    local u = CreateUnitAtLoc(self.creepPlayer, unitType, loc, bj_UNIT_FACING)
+    RemoveGuardPosition(u)
     RemoveLocation(loc)
 end
 function CreepRoute.prototype.createWaypointList(self)
-    __TS__ArrayForEach(__TS__ObjectEntries(Globals.AllRegions), function(____, ____TS_bindingPattern0)
+    __TS__ArrayForEach(__TS__ObjectEntries(Global.AllRegions), function(____, ____TS_bindingPattern0)
         local key = ____TS_bindingPattern0[1]
         local value = ____TS_bindingPattern0[2]
         if __TS__StringStartsWith(key, "gg_rct_route" .. tostring(self.myIndex)) then

@@ -1,4 +1,8 @@
 local ____exports = {}
+local __TSTL_Point = require("war3map.Generic.Point")
+local Point = __TSTL_Point.Point
+local __TSTL_ExtensionFunctions = require("war3map.ExtensionFunctions")
+local IsWalkable = __TSTL_ExtensionFunctions.IsWalkable
 ____exports.BasicUnitController = {}
 local BasicUnitController = ____exports.BasicUnitController
 BasicUnitController.name = "BasicUnitController"
@@ -20,11 +24,15 @@ end
 function BasicUnitController.prototype.moveUnit(self, toDirection)
     local speed = GetUnitMoveSpeed(self.targetUnit) / 100
     self.currentDirection = self:rotateToPoint(self.currentDirection, toDirection, 180)
-    local currLoc = GetUnitLoc(self.targetUnit)
-    currLoc = PolarProjectionBJ(currLoc, speed, self.currentDirection)
-    SetUnitPositionLoc(self.targetUnit, currLoc)
+    local lastLoc = Point:fromLocationClean(GetUnitLoc(self.targetUnit))
+    local currLoc = lastLoc:polarProject(speed, self.currentDirection)
+    if IsWalkable(nil, currLoc.x, lastLoc.y) then
+        SetUnitX(self.targetUnit, currLoc.x)
+    end
+    if IsWalkable(nil, lastLoc.x, currLoc.y) then
+        SetUnitY(self.targetUnit, currLoc.y)
+    end
     SetUnitFacing(self.targetUnit, self.currentDirection)
-    RemoveLocation(currLoc)
 end
 function BasicUnitController.prototype.getWalkAnimationIndex(self)
     return self.walkAnimationIndex

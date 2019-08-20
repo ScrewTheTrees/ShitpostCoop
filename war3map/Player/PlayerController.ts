@@ -3,6 +3,8 @@ import {PlayerInput} from "./PlayerInput";
 import {Orders} from "../Orders";
 import {Entity} from "../Generic/Entity";
 import {PlayerCastDto} from "./PlayerCastDto";
+import {ProjectileArrow} from "../Projectile/ProjectileArrow";
+import {Point} from "../Generic/Point";
 
 export class PlayerController extends Entity {
     public controllingPlayer: player;
@@ -26,10 +28,15 @@ export class PlayerController extends Entity {
 
     step() {
         if (this.controlledUnit && this.unitController) {
-            if (this.nextCast) {
+            if (this.nextCast && !this.isCasting) {
                 IssuePointOrder(this.controlledUnit, this.unitController.heroUnit.attackSpellOrderString, GetLocationX(this.nextCast.castLoc), GetLocationY(this.nextCast.castLoc));
                 this.isCasting = true;
-                this.castingTimer = this.unitController.heroUnit.heroAttack.castTime;
+            }
+            if (this.nextCast && this.isCasting && this.castingTimer < this.getBackswingValue()) {
+                new ProjectileArrow("Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl",
+                    32, this.controlledUnit, Point.fromLocationClean(GetUnitLoc(this.controlledUnit)),
+                    Point.fromLocation(this.nextCast.castLoc), 1.00, 10);
+
                 this.nextCast.destruct();
                 this.nextCast = null;
             }
@@ -96,7 +103,8 @@ export class PlayerController extends Entity {
             const button = BlzGetTriggerPlayerMouseButton();
             const loc = BlzGetTriggerPlayerMousePosition();
             if (this.controlledUnit && this.unitController) {
-                if (button === MOUSE_BUTTON_TYPE_RIGHT) {
+                if (button === MOUSE_BUTTON_TYPE_RIGHT && !this.isCasting) {
+                    this.castingTimer = this.unitController.heroUnit.heroAttack.castTime;
                     this.nextCast = new PlayerCastDto(loc);
                 }
             }
@@ -107,5 +115,13 @@ export class PlayerController extends Entity {
     public addControlledUnit(controlledUnit: unit, unitController: IUnitController) {
         this.controlledUnit = controlledUnit;
         this.unitController = unitController;
+    }
+
+
+    private getBackswingValue(): number {
+        if (this.unitController) {
+            return this.unitController.heroUnit.heroAttack.castTime - this.unitController.heroUnit.heroAttack.backswing;
+        }
+        return -1;
     }
 }

@@ -1,6 +1,6 @@
 import {GlobalGenerator} from "./GlobalGenerator";
 import {CreepRoute} from "./CreepRoute";
-import {Globals} from "./Globals";
+import {Global} from "./Global";
 import {ProgressTracker} from "./ProgressTracker";
 import {WaveHandler} from "./WaveHandler";
 import {Wave} from "./Wave";
@@ -12,7 +12,7 @@ import {MapTimers} from "./MapTimers";
 export class Game {
     public routes: CreepRoute[] = [];
     private waveHandler: WaveHandler;
-    private playerController: any[] = [];
+    private playerController: PlayerController[] = [];
     private mapTimers: MapTimers;
 
     constructor() {
@@ -20,9 +20,9 @@ export class Game {
         this.mapTimers = new MapTimers();
         this.mapTimers.init();
 
-        this.routes[1] = (new CreepRoute(1, Globals.CreepPlayers[1]));
-        this.routes[2] = (new CreepRoute(2, Globals.CreepPlayers[2]));
-        this.routes[3] = (new CreepRoute(3, Globals.CreepPlayers[3]));
+        this.routes[1] = (new CreepRoute(1, Global.CreepPlayers[1]));
+        this.routes[2] = (new CreepRoute(2, Global.CreepPlayers[2]));
+        this.routes[3] = (new CreepRoute(3, Global.CreepPlayers[3]));
 
         const route = this.routes[1];
         const route2 = this.routes[2];
@@ -64,8 +64,8 @@ export class Game {
     }
 
     private createPlayers() {
-        for (let i = 0; i < Globals.ActivePlayers.length; i++) {
-            const targetPlayer: player = Globals.ActivePlayers[i];
+        for (let i = 0; i < Global.ActivePlayers.length; i++) {
+            const targetPlayer: player = Global.ActivePlayers[i];
             const fogMod = CreateFogModifierRect(targetPlayer, FOG_OF_WAR_VISIBLE, GetEntireMapRect(), false, false);
             FogModifierStart(fogMod);
 
@@ -78,6 +78,5 @@ export class Game {
             pc.addControlledUnit(u, new BasicUnitController(u, hero));
         }
     }
-
 
 }

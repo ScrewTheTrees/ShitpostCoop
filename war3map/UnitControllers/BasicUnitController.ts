@@ -1,5 +1,7 @@
 import {IUnitController} from "./IUnitController";
 import {HeroUnit} from "./HeroUnit";
+import {Point} from "../Generic/Point";
+import {IsWalkable} from "../ExtensionFunctions";
 
 export class BasicUnitController implements IUnitController {
     private readonly targetUnit: unit;
@@ -12,17 +14,20 @@ export class BasicUnitController implements IUnitController {
         this.targetUnit = targetUnit;
         this.walkAnimationIndex = heroUnit.walkAnimationIndex;
         this.heroUnit = heroUnit;
-
     }
 
     moveUnit(toDirection: number) {
         let speed = GetUnitMoveSpeed(this.targetUnit) / 100;
         this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, 180);
-        let currLoc = GetUnitLoc(this.targetUnit);
-        currLoc = PolarProjectionBJ(currLoc, speed, this.currentDirection);
-        SetUnitPositionLoc(this.targetUnit, currLoc);
+        let lastLoc = Point.fromLocationClean(GetUnitLoc(this.targetUnit));
+        let currLoc = lastLoc.polarProject(speed, this.currentDirection);
+        if (IsWalkable(currLoc.x, lastLoc.y)) {
+            SetUnitX(this.targetUnit, currLoc.x);
+        }
+        if (IsWalkable(lastLoc.x, currLoc.y)) {
+            SetUnitY(this.targetUnit, currLoc.y);
+        }
         SetUnitFacing(this.targetUnit, this.currentDirection);
-        RemoveLocation(currLoc);
     }
 
     getWalkAnimationIndex(): number {

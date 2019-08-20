@@ -40,8 +40,8 @@ function __TS__ArrayPush(arr, ...)
 end
 
 local ____exports = {}
-local __TSTL_Globals = require("war3map.Globals")
-local Globals = __TSTL_Globals.Globals
+local __TSTL_Global = require("war3map.Global")
+local Global = __TSTL_Global.Global
 local __TSTL_Logger = require("war3map.Logger")
 local Logger = __TSTL_Logger.Logger
 ____exports.GlobalGenerator = {}
@@ -69,18 +69,18 @@ function GlobalGenerator.run(self)
     self:generatePlayers()
 end
 function GlobalGenerator.handleRegion(self, key, value)
-    Globals.AllRegions[key] = value
-    Logger:LogVerbose(Globals.AllRegions[key])
+    Global.AllRegions[key] = value
+    Logger:LogVerbose(Global.AllRegions[key])
 end
 function GlobalGenerator.generatePlayers(self)
     local computerPlayers = 0
     do
         local i = 0
-        while i < Globals.MaxPlayerSlots do
+        while i < Global.MaxPlayerSlots do
             local targetPlayer = Player(i)
             if GetPlayerSlotState(targetPlayer) == PLAYER_SLOT_STATE_PLAYING then
                 if GetPlayerController(targetPlayer) == MAP_CONTROL_USER then
-                    __TS__ArrayPush(Globals.ActivePlayers, targetPlayer)
+                    __TS__ArrayPush(Global.ActivePlayers, targetPlayer)
                     print(tostring(GetPlayerName(targetPlayer)) .. " is up for the task.")
                 else
                     computerPlayers = computerPlayers + 1
@@ -95,10 +95,10 @@ function GlobalGenerator.generatePlayers(self)
     if computerPlayers > 0 then
         print("I know friends are hard to find, but the " .. tostring(computerPlayers) .. " computer/s is no substitute.")
     end
-    Globals.CreepPlayers[2] = Player(12)
-    Globals.CreepPlayers[3] = Player(13)
-    Globals.CreepPlayers[4] = Player(14)
-    Globals.CreepPlayers[5] = Player(15)
-    Logger:LogDebug("Num of Creep players: ", #Globals.CreepPlayers)
+    Global.CreepPlayers[2] = Player(12)
+    Global.CreepPlayers[3] = Player(13)
+    Global.CreepPlayers[4] = Player(14)
+    Global.CreepPlayers[5] = Player(15)
+    Logger:LogDebug("Num of Creep players: ", #Global.CreepPlayers)
 end
 return ____exports

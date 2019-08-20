@@ -1,4 +1,4 @@
-import {Globals} from "./Globals";
+import {Global} from "./Global";
 import {ShitEx} from "./ShitEx";
 import {Logger} from "./Logger";
 import {Orders} from "./Orders";
@@ -15,8 +15,8 @@ export class CreepRoute {
     constructor(index: number, creepPlayer: player) {
         this.myIndex = index;
         this.creepPlayer = creepPlayer;
-        this.startPoint = Globals.AllRegions["gg_rct_route" + this.myIndex + "spawn"];
-        this.endPoint = Globals.AllRegions["gg_rct_route" + this.myIndex + "end"];
+        this.startPoint = Global.AllRegions["gg_rct_route" + this.myIndex + "spawn"];
+        this.endPoint = Global.AllRegions["gg_rct_route" + this.myIndex + "end"];
 
         this.createWaypointList();
         this.generateWaypoints();
@@ -29,13 +29,14 @@ export class CreepRoute {
 
     public spawnUnit(unitType: number) {
         const loc = GetRandomLocInRectUnitSafe(this.startPoint);
-        CreateUnitAtLoc(this.creepPlayer, unitType, loc, bj_UNIT_FACING);
+        let u = CreateUnitAtLoc(this.creepPlayer, unitType, loc, bj_UNIT_FACING);
+        RemoveGuardPosition(u);
         RemoveLocation(loc);
     }
 
 
     private createWaypointList() {
-        Object.entries(Globals.AllRegions).forEach(([key, value]) => {
+        Object.entries(Global.AllRegions).forEach(([key, value]) => {
             if (key.startsWith("gg_rct_route" + this.myIndex)) {
                 const result = ShitEx.seperateNumbers(key);
                 if (result[2] == "waypoint") {
