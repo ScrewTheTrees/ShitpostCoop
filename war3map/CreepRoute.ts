@@ -1,6 +1,6 @@
 import {Global} from "./Global";
 import {ShitEx} from "./ShitEx";
-import {Logger} from "./Logger";
+import {Logger} from "./Generic/Logger";
 import {Orders} from "./Orders";
 import {GetRandomLocInRectUnitSafe} from "./ExtensionFunctions";
 

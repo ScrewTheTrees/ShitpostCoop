@@ -23,7 +23,7 @@ function BasicUnitController.prototype.____constructor(self, targetUnit, heroUni
 end
 function BasicUnitController.prototype.moveUnit(self, toDirection)
     local speed = GetUnitMoveSpeed(self.targetUnit) / 100
-    self.currentDirection = self:rotateToPoint(self.currentDirection, toDirection, 180)
+    self.currentDirection = self:rotateToPoint(toDirection, 180)
     local lastLoc = Point:fromLocationClean(GetUnitLoc(self.targetUnit))
     local currLoc = lastLoc:polarProject(speed, self.currentDirection)
     if IsWalkable(nil, currLoc.x, lastLoc.y) then
@@ -37,8 +37,8 @@ end
 function BasicUnitController.prototype.getWalkAnimationIndex(self)
     return self.walkAnimationIndex
 end
-function BasicUnitController.prototype.rotateToPoint(self, fromDir, toDir, turnSpeed)
-    local result = toDir - fromDir
+function BasicUnitController.prototype.rotateToPoint(self, toDir, turnSpeed)
+    local result = toDir - self.currentDirection
     while result > 180 do
         result = result - 360
     end
@@ -52,6 +52,6 @@ function BasicUnitController.prototype.rotateToPoint(self, fromDir, toDir, turnS
     if turnDir > turnSpeed then
         turnDir = turnSpeed
     end
-    return (fromDir + turnDir) % 360
+    return (self.currentDirection + turnDir) % 360
 end
 return ____exports

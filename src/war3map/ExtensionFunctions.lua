@@ -7,11 +7,24 @@ function ____exports.GetRandomLocInRectUnitSafe(self, endRect)
 end
 function ____exports.GetTerrainHeight(self, x, y)
     local loc = Location(x, y)
-    local retvar = GetLocationZ(loc)
+    local retVar = GetLocationZ(loc)
     RemoveLocation(loc)
-    return retvar
+    return retVar
 end
 function ____exports.IsPointWalkable(self, p)
     return ____exports.IsWalkable(nil, p.x, p.y)
+end
+function ____exports.GetNumOfPlayerUnits(self, target)
+    local units = CreateGroup()
+    GroupEnumUnitsOfPlayer(units, target, nil)
+    local foundUnit = FirstOfGroup(units)
+    local count = 0
+    while foundUnit ~= nil do
+        foundUnit = FirstOfGroup(units)
+        GroupRemoveUnit(units, foundUnit)
+        count = count + 1
+    end
+    DestroyGroup(units)
+    return count
 end
 return ____exports

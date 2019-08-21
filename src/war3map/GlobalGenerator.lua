@@ -42,7 +42,7 @@ end
 local ____exports = {}
 local __TSTL_Global = require("war3map.Global")
 local Global = __TSTL_Global.Global
-local __TSTL_Logger = require("war3map.Logger")
+local __TSTL_Logger = require("war3map.Generic.Logger")
 local Logger = __TSTL_Logger.Logger
 ____exports.GlobalGenerator = {}
 local GlobalGenerator = ____exports.GlobalGenerator

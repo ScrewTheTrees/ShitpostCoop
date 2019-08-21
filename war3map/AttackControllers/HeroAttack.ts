@@ -1,4 +1,4 @@
-import {Logger} from "../Logger";
+import {Logger} from "../Generic/Logger";
 
 export class HeroAttack {
     public castTime: number;

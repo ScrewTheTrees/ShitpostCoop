@@ -7,18 +7,14 @@ import {Wave} from "./Wave";
 import {PlayerController} from "./Player/PlayerController";
 import {BasicUnitController} from "./UnitControllers/BasicUnitController";
 import {HeroUnit} from "./UnitControllers/HeroUnit";
-import {MapTimers} from "./MapTimers";
 
 export class Game {
     public routes: CreepRoute[] = [];
     private waveHandler: WaveHandler;
     private playerController: PlayerController[] = [];
-    private mapTimers: MapTimers;
 
     constructor() {
         GlobalGenerator.run();
-        this.mapTimers = new MapTimers();
-        this.mapTimers.init();
 
         this.routes[1] = (new CreepRoute(1, Global.CreepPlayers[1]));
         this.routes[2] = (new CreepRoute(2, Global.CreepPlayers[2]));
@@ -45,22 +41,6 @@ export class Game {
         ProgressTracker.AddCreepExitRegion(route.endPoint, route.creepPlayer);
         ProgressTracker.AddCreepExitRegion(route2.endPoint, route2.creepPlayer);
         ProgressTracker.AddCreepExitRegion(route3.endPoint, route3.creepPlayer);
-    }
-
-
-    private GetNumOfPlayerUnits(target: player): number {
-        const units = CreateGroup();
-        GroupEnumUnitsOfPlayer(units, target, null);
-        let foundUnit = FirstOfGroup(units);
-        let count = 0;
-
-        while (foundUnit != null) {
-            foundUnit = FirstOfGroup(units);
-            GroupRemoveUnit(units, foundUnit);
-            count += 1;
-        }
-        DestroyGroup(units);
-        return count;
     }
 
     private createPlayers() {

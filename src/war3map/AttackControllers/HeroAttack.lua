@@ -1,5 +1,5 @@
 local ____exports = {}
-local __TSTL_Logger = require("war3map.Logger")
+local __TSTL_Logger = require("war3map.Generic.Logger")
 local Logger = __TSTL_Logger.Logger
 ____exports.HeroAttack = {}
 local HeroAttack = ____exports.HeroAttack

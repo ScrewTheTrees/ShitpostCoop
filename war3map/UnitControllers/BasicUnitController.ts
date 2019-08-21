@@ -16,9 +16,9 @@ export class BasicUnitController implements IUnitController {
         this.heroUnit = heroUnit;
     }
 
-    moveUnit(toDirection: number) {
+    public moveUnit(toDirection: number) {
         let speed = GetUnitMoveSpeed(this.targetUnit) / 100;
-        this.currentDirection = this.rotateToPoint(this.currentDirection, toDirection, 180);
+        this.currentDirection = this.rotateToPoint(toDirection, 180);
         let lastLoc = Point.fromLocationClean(GetUnitLoc(this.targetUnit));
         let currLoc = lastLoc.polarProject(speed, this.currentDirection);
         if (IsWalkable(currLoc.x, lastLoc.y)) {
@@ -30,13 +30,13 @@ export class BasicUnitController implements IUnitController {
         SetUnitFacing(this.targetUnit, this.currentDirection);
     }
 
-    getWalkAnimationIndex(): number {
+    public getWalkAnimationIndex(): number {
         return this.walkAnimationIndex;
     }
 
 
-    private rotateToPoint(fromDir: number, toDir: number, turnSpeed: number) {
-        let result = toDir - fromDir;
+    private rotateToPoint(toDir: number, turnSpeed: number) {
+        let result = toDir - this.currentDirection;
         while (result > 180) {
             result -= 360
         }
@@ -52,6 +52,6 @@ export class BasicUnitController implements IUnitController {
             turnDir = turnSpeed
         }
 
-        return (fromDir + turnDir) % 360;
+        return (this.currentDirection + turnDir) % 360;
     }
 }

@@ -25,8 +25,6 @@ local __TSTL_BasicUnitController = require("war3map.UnitControllers.BasicUnitCon
 local BasicUnitController = __TSTL_BasicUnitController.BasicUnitController
 local __TSTL_HeroUnit = require("war3map.UnitControllers.HeroUnit")
 local HeroUnit = __TSTL_HeroUnit.HeroUnit
-local __TSTL_MapTimers = require("war3map.MapTimers")
-local MapTimers = __TSTL_MapTimers.MapTimers
 ____exports.Game = {}
 local Game = ____exports.Game
 Game.name = "Game"
@@ -43,8 +41,6 @@ function Game.prototype.____constructor(self)
     self.routes = {}
     self.playerController = {}
     GlobalGenerator:run()
-    self.mapTimers = MapTimers.new()
-    self.mapTimers:init()
     self.routes[2] = CreepRoute.new(1, Global.CreepPlayers[2])
     self.routes[3] = CreepRoute.new(2, Global.CreepPlayers[3])
     self.routes[4] = CreepRoute.new(3, Global.CreepPlayers[4])
@@ -66,19 +62,6 @@ function Game.prototype.____constructor(self)
     ProgressTracker:AddCreepExitRegion(route.endPoint, route.creepPlayer)
     ProgressTracker:AddCreepExitRegion(route2.endPoint, route2.creepPlayer)
     ProgressTracker:AddCreepExitRegion(route3.endPoint, route3.creepPlayer)
-end
-function Game.prototype.GetNumOfPlayerUnits(self, target)
-    local units = CreateGroup()
-    GroupEnumUnitsOfPlayer(units, target, nil)
-    local foundUnit = FirstOfGroup(units)
-    local count = 0
-    while foundUnit ~= nil do
-        foundUnit = FirstOfGroup(units)
-        GroupRemoveUnit(units, foundUnit)
-        count = count + 1
-    end
-    DestroyGroup(units)
-    return count
 end
 function Game.prototype.createPlayers(self)
     do

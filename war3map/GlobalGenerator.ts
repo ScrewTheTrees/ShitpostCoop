@@ -1,5 +1,5 @@
 import {Global} from "./Global";
-import {Logger} from "./Logger";
+import {Logger} from "./Generic/Logger";
 
 export class GlobalGenerator {
     public static run() {

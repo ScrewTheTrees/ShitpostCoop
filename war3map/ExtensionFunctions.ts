@@ -9,9 +9,9 @@ export function GetRandomLocInRectUnitSafe(endRect: rect) {
 
 export function GetTerrainHeight(x: number, y: number) {
     let loc = Location(x, y);
-    let retvar = GetLocationZ(loc);
+    let retVar = GetLocationZ(loc);
     RemoveLocation(loc);
-    return retvar;
+    return retVar;
 }
 
 export function IsPointWalkable(p: Point) {
@@ -19,4 +19,19 @@ export function IsPointWalkable(p: Point) {
 }
 export function IsWalkable(x: number, y: number) {
     return !(IsTerrainPathable(x, y, PATHING_TYPE_WALKABILITY))
+}
+
+export function GetNumOfPlayerUnits(target: player): number {
+    const units = CreateGroup();
+    GroupEnumUnitsOfPlayer(units, target, null);
+    let foundUnit = FirstOfGroup(units);
+    let count = 0;
+
+    while (foundUnit != null) {
+        foundUnit = FirstOfGroup(units);
+        GroupRemoveUnit(units, foundUnit);
+        count += 1;
+    }
+    DestroyGroup(units);
+    return count;
 }

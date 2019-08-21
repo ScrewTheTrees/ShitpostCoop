@@ -135,8 +135,8 @@ function __TS__ArraySplice(list, start, deleteCount, ...)
 end
 
 local ____exports = {}
-local __TSTL_MapTimers = require("war3map.MapTimers")
-local MapTimers = __TSTL_MapTimers.MapTimers
+local __TSTL_Timers = require("war3map.Generic.Timers")
+local Timers = __TSTL_Timers.Timers
 ____exports.Entity = {}
 local Entity = ____exports.Entity
 Entity.name = "Entity"
@@ -150,25 +150,18 @@ function Entity.new(...)
     return self
 end
 function Entity.prototype.____constructor(self)
-    self.entityComponents = {}
     if ____exports.Entity.entityLoop == nil then
         ____exports.Entity.entityLoop = function()
             __TS__ArrayForEach(____exports.Entity.entities, function(____, entity)
                 entity:_updateEntity()
             end)
         end
-        MapTimers:addFastTimerCallback(____exports.Entity.entityLoop)
+        Timers:addFastTimerCallback("entityLoop", ____exports.Entity.entityLoop)
     end
     __TS__ArrayPush(____exports.Entity.entities, self)
 end
 function Entity.prototype._updateEntity(self)
     self.step(self)
-    __TS__ArrayForEach(self.entityComponents, function(____, component)
-        component:step()
-    end)
-end
-function Entity.prototype.addComponent(self, component)
-    __TS__ArrayPush(self.entityComponents, component)
 end
 function Entity.prototype.remove(self)
     local index = __TS__ArrayIndexOf(____exports.Entity.entities, self)
