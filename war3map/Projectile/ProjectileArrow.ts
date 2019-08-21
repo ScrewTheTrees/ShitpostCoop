@@ -1,7 +1,7 @@
 import {Entity} from "../Generic/Entity";
 import {Point} from "../Generic/Point";
-import {Global} from "../Global";
 import {GetTerrainHeight} from "../ExtensionFunctions";
+import {linearInterpolate} from "../Generic/Misc";
 
 export class ProjectileArrow extends Entity {
     public readonly model: string;
@@ -40,13 +40,15 @@ export class ProjectileArrow extends Entity {
     public move(nextPoint: Point) {
         this.previousPoint = this.currentPoint;
         this.currentPoint = nextPoint;
-        BlzSetSpecialEffectPosition(this.effect, nextPoint.x, nextPoint.y, GetTerrainHeight(nextPoint.x, nextPoint.y) + this.effectHeight);
-        BlzSetSpecialEffectYaw(this.effect, this.direction * Global.DegToRad);
+        let currentZ = BlzGetLocalSpecialEffectZ(this.effect);
+        let wantedZ = GetTerrainHeight(nextPoint.x, nextPoint.y) + this.effectHeight;
+        BlzSetSpecialEffectPosition(this.effect, nextPoint.x, nextPoint.y, linearInterpolate(currentZ, wantedZ, 1));
+        BlzSetSpecialEffectYaw(this.effect, this.direction * bj_DEGTORAD);
     }
 
     step(): void {
         const nextPosition: Point = this.currentPoint.polarProject(this.speed, this.direction);
-        if (GetTerrainCliffLevel(nextPosition.x, nextPosition.y) <= this.cliffLevel){
+        if (GetTerrainCliffLevel(nextPosition.x, nextPosition.y) <= this.cliffLevel) {
             this.cliffLevel = GetTerrainCliffLevel(nextPosition.x, nextPosition.y);
             this.move(nextPosition);
         } else {

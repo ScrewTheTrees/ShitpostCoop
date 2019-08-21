@@ -35,7 +35,7 @@ export class PlayerController extends Entity {
             if (this.nextCast && this.isCasting && this.castingTimer < this.getBackswingValue()) {
                 new ProjectileArrow("Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl",
                     25, this.controlledUnit, Point.fromLocationClean(GetUnitLoc(this.controlledUnit)),
-                    Point.fromLocation(this.nextCast.castLoc), 1.00, 25);
+                    Point.fromLocation(this.nextCast.castLoc), 1.00, 4);
 
                 this.nextCast.destruct();
                 this.nextCast = null;

@@ -2,6 +2,7 @@ import {IUnitController} from "./IUnitController";
 import {HeroUnit} from "./HeroUnit";
 import {Point} from "../Generic/Point";
 import {IsWalkable} from "../ExtensionFunctions";
+import {rotateToPoint} from "../Generic/Misc";
 
 export class BasicUnitController implements IUnitController {
     private readonly targetUnit: unit;
@@ -18,7 +19,7 @@ export class BasicUnitController implements IUnitController {
 
     public moveUnit(toDirection: number) {
         let speed = GetUnitMoveSpeed(this.targetUnit) / 100;
-        this.currentDirection = this.rotateToPoint(toDirection, 180);
+        this.currentDirection = rotateToPoint(this.currentDirection, toDirection, 180);
         let lastLoc = Point.fromLocationClean(GetUnitLoc(this.targetUnit));
         let currLoc = lastLoc.polarProject(speed, this.currentDirection);
         if (IsWalkable(currLoc.x, lastLoc.y)) {
@@ -32,26 +33,5 @@ export class BasicUnitController implements IUnitController {
 
     public getWalkAnimationIndex(): number {
         return this.walkAnimationIndex;
-    }
-
-
-    private rotateToPoint(toDir: number, turnSpeed: number) {
-        let result = toDir - this.currentDirection;
-        while (result > 180) {
-            result -= 360
-        }
-        while (result < -180) {
-            result += 360
-        }
-        let turnDir = result;
-
-        if (turnDir < -turnSpeed) {
-            turnDir = -turnSpeed
-        }
-        if (turnDir > turnSpeed) {
-            turnDir = turnSpeed
-        }
-
-        return (this.currentDirection + turnDir) % 360;
     }
 }

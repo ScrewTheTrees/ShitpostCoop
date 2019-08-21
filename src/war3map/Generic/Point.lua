@@ -1,6 +1,4 @@
 local ____exports = {}
-local __TSTL_Global = require("war3map.Global")
-local Global = __TSTL_Global.Global
 ____exports.Point = {}
 local Point = ____exports.Point
 Point.name = "Point"
@@ -28,8 +26,8 @@ function Point.prototype.toLocation(self)
     return Location(self.x, self.y)
 end
 function Point.prototype.polarProject(self, distance, angle)
-    local x = self.x + distance * math.cos(angle * Global.DegToRad)
-    local y = self.y + distance * math.sin(angle * Global.DegToRad)
+    local x = self.x + distance * math.cos(angle * bj_DEGTORAD)
+    local y = self.y + distance * math.sin(angle * bj_DEGTORAD)
     return ____exports.Point.new(x, y)
 end
 function Point.fromLocation(self, inputLoc)

@@ -3,6 +3,8 @@ local __TSTL_Point = require("war3map.Generic.Point")
 local Point = __TSTL_Point.Point
 local __TSTL_ExtensionFunctions = require("war3map.ExtensionFunctions")
 local IsWalkable = __TSTL_ExtensionFunctions.IsWalkable
+local __TSTL_Misc = require("war3map.Generic.Misc")
+local rotateToPoint = __TSTL_Misc.rotateToPoint
 ____exports.BasicUnitController = {}
 local BasicUnitController = ____exports.BasicUnitController
 BasicUnitController.name = "BasicUnitController"
@@ -23,7 +25,7 @@ function BasicUnitController.prototype.____constructor(self, targetUnit, heroUni
 end
 function BasicUnitController.prototype.moveUnit(self, toDirection)
     local speed = GetUnitMoveSpeed(self.targetUnit) / 100
-    self.currentDirection = self:rotateToPoint(toDirection, 180)
+    self.currentDirection = rotateToPoint(nil, self.currentDirection, toDirection, 180)
     local lastLoc = Point:fromLocationClean(GetUnitLoc(self.targetUnit))
     local currLoc = lastLoc:polarProject(speed, self.currentDirection)
     if IsWalkable(nil, currLoc.x, lastLoc.y) then
@@ -36,22 +38,5 @@ function BasicUnitController.prototype.moveUnit(self, toDirection)
 end
 function BasicUnitController.prototype.getWalkAnimationIndex(self)
     return self.walkAnimationIndex
-end
-function BasicUnitController.prototype.rotateToPoint(self, toDir, turnSpeed)
-    local result = toDir - self.currentDirection
-    while result > 180 do
-        result = result - 360
-    end
-    while result < -180 do
-        result = result + 360
-    end
-    local turnDir = result
-    if turnDir < -turnSpeed then
-        turnDir = -turnSpeed
-    end
-    if turnDir > turnSpeed then
-        turnDir = turnSpeed
-    end
-    return (self.currentDirection + turnDir) % 360
 end
 return ____exports

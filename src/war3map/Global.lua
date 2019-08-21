@@ -17,5 +17,4 @@ Global.MaxPlayerSlots = 4
 Global.ActivePlayers = {}
 Global.CreepPlayers = {}
 Global.AllRegions = {}
-Global.DegToRad = 0.0174533
 return ____exports

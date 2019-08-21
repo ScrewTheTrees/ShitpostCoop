@@ -47,7 +47,7 @@ function PlayerController.prototype.step(self)
             self.isCasting = true
         end
         if self.nextCast and self.isCasting and self.castingTimer < self:getBackswingValue() then
-            ProjectileArrow.new("Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl", 32, self.controlledUnit, Point:fromLocationClean(GetUnitLoc(self.controlledUnit)), Point:fromLocation(self.nextCast.castLoc), 1, 10)
+            ProjectileArrow.new("Abilities\\Weapons\\MoonPriestessMissile\\MoonPriestessMissile.mdl", 25, self.controlledUnit, Point:fromLocationClean(GetUnitLoc(self.controlledUnit)), Point:fromLocation(self.nextCast.castLoc), 1, 4)
             self.nextCast:destruct()
             self.nextCast = nil
         end

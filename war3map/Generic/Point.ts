@@ -1,5 +1,3 @@
-import {Global} from "../Global";
-
 export class Point {
     public x: number;
     public y: number;
@@ -23,8 +21,8 @@ export class Point {
     }
 
     public polarProject(distance: number, angle: number): Point {
-        let x = this.x + distance * math.cos(angle * Global.DegToRad);
-        let y = this.y + distance * math.sin(angle * Global.DegToRad);
+        let x = this.x + distance * math.cos(angle * bj_DEGTORAD);
+        let y = this.y + distance * math.sin(angle * bj_DEGTORAD);
         return new Point(x, y);
     }
 

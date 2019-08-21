@@ -1,10 +1,10 @@
 local ____exports = {}
 local __TSTL_Entity = require("war3map.Generic.Entity")
 local Entity = __TSTL_Entity.Entity
-local __TSTL_Global = require("war3map.Global")
-local Global = __TSTL_Global.Global
 local __TSTL_ExtensionFunctions = require("war3map.ExtensionFunctions")
 local GetTerrainHeight = __TSTL_ExtensionFunctions.GetTerrainHeight
+local __TSTL_Misc = require("war3map.Generic.Misc")
+local linearInterpolate = __TSTL_Misc.linearInterpolate
 ____exports.ProjectileArrow = {}
 local ProjectileArrow = ____exports.ProjectileArrow
 ProjectileArrow.name = "ProjectileArrow"
@@ -40,8 +40,10 @@ end
 function ProjectileArrow.prototype.move(self, nextPoint)
     self.previousPoint = self.currentPoint
     self.currentPoint = nextPoint
-    BlzSetSpecialEffectPosition(self.effect, nextPoint.x, nextPoint.y, GetTerrainHeight(nil, nextPoint.x, nextPoint.y) + self.effectHeight)
-    BlzSetSpecialEffectYaw(self.effect, self.direction * Global.DegToRad)
+    local currentZ = BlzGetLocalSpecialEffectZ(self.effect)
+    local wantedZ = GetTerrainHeight(nil, nextPoint.x, nextPoint.y) + self.effectHeight
+    BlzSetSpecialEffectPosition(self.effect, nextPoint.x, nextPoint.y, linearInterpolate(nil, currentZ, wantedZ, 1))
+    BlzSetSpecialEffectYaw(self.effect, self.direction * bj_DEGTORAD)
 end
 function ProjectileArrow.prototype.step(self)
     local nextPosition = self.currentPoint:polarProject(self.speed, self.direction)
